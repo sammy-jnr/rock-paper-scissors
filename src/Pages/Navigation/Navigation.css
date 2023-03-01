@@ -1,0 +1,20 @@
+#navigationContainer{
+  height: 80px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: #0f0f22;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.navItems{
+  display: grid;
+  place-items: center;
+}
+.friendsIcon{
+  width: 36px;
+}
+.homeIcon{
+  width: 31px;
+}

@@ -1,0 +1,75 @@
+#selectOptionContainer{
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  position: absolute;
+  color: #cecece;
+  background-image: linear-gradient(-45deg, #1f3756, #141539);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: scroll;
+}
+.gameInfoPreview{
+  margin: 0 auto;
+  width: 100%;
+}
+.gameSettingsPreview{
+  background-color: #1f3756;
+  border-radius: 3px;
+}
+.gameSettingsPreview div{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.userSettingsPreview{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.scoreInfo{
+  border: 3px solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scoreInfo2{
+  border: 3px solid;
+  border-radius: 5px;
+  margin: 15px;
+ 
+}
+#scorevalue{
+  background-color: white;
+  padding: 15px 40px;
+  color: #141539;
+  font-size: 35px;
+  border-radius: 3px;
+}
+#scoreText{
+  font-size: 40px;
+  font-weight: 600;
+}
+#player1, #player2{
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.selectOption,.selectedOption{
+  /* background-color: red; */
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+  height: calc(100% - 200px);
+  display: grid;
+  place-items: center;
+}
+.selectedOption{
+  max-width: clamp(200px,90%, 800px );
+}
+

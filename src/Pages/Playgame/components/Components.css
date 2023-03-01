@@ -1,0 +1,258 @@
+#by3container {
+  width: 100%;
+  /* height: 100%; */
+  height: 300px;
+  max-height: 450px;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: 50%;
+  position: relative;
+  background-image: url(../../../Assets/Images/bg-triangle.svg);
+}
+
+#by5container {
+  width: 100%;
+  height: 100%;
+  max-height: 450px;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: 50%;
+  position: relative;
+  background-image: url(../../../Assets/Images/bg-pentagon.svg);
+}
+.selectOption5First {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 40px;
+  margin-bottom: 5px;
+}
+
+.selectOption5Second {
+  display: flex;
+  justify-content: center;
+  gap: 30%;
+  margin-top: 20px;
+}
+
+.selectOption5Third {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+/* half the styles are in tokenicon.css */
+
+/*  */
+#optionSelectedContainer{
+  height: 100%;
+  width: 100%;
+}
+#optionSelectedContainerTop{
+  height: 50%;
+  width: 100%;
+}
+#optionSelectedContainerTopImgs{
+  height: calc(100% - 40px);
+  max-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#optionSelectedContainerTopText{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0px 0 20px;
+  margin-top: 10px;
+}
+#optionSelectedContainerBottom{
+  min-height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+#displayVerdict{
+  width: 250px;
+  margin: 0 auto;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  background-color: #cecece;
+  color: #141539;
+  font-size: 2.5em;
+  font-weight: 700;
+  border-radius: 5px;
+}
+#newGame{
+  width: 90%;
+  max-width: 500px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5em;
+  background-color: #141539;
+  margin: auto;
+  margin-top: 40px;
+  border-radius: 5px;
+  padding: 13px;
+}
+
+.waitingDiv{
+  font-size: 2em;
+  
+}
+.nextRound{
+  font-size: 2em;
+  padding: 10px 30px;
+  border: 2px solid;
+  border-radius: 5px;
+}
+
+/*  */
+.objectsIconOuter{
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.objectsIconInner{
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+}
+.smallImages{
+  width: 35px;
+}
+.objectsIconOuterSmall{
+  min-width: 105px;
+  height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.objectsIconInnerSmall{
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+}
+.selectOption5First{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 40px;
+  margin-bottom: 5px;
+}
+.selectOption5Second{
+  display: flex;
+  justify-content: center;
+  gap: 30%;
+  margin-top: 20px;
+}
+.selectOption5Third{
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+.rockIcon{
+ background-image: linear-gradient(180deg, #dc2e4e , #dd405d);
+}
+.scissorsIcon{
+  background-image: linear-gradient(180deg, #ec9e0e , #eca922);}
+.paperIcon{
+  background-image: linear-gradient(180deg,#4865f4 , #5671f5);
+}
+.lizardIcon{
+  background-image: linear-gradient(180deg,#834fe3 , #8c5de5);
+}
+.spockIcon{
+  background-image: linear-gradient(180deg,#40b9ce , #52bed1);
+}
+.empty{
+  background-color: #14153971;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px dotted #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+#selectOption3Top{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  /* top: -30px; */
+}
+#selectOption3Bottom{
+  display: flex;
+  justify-content: center;
+  top: 50px;
+  position: relative;
+}
+.selectOption5Second {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+/* half the styles are in components.css */
+
+
+@media screen and (min-width: 361px) {
+  .objectsIconOuter{
+    width: 140px;
+    height: 140px;
+  }
+  .objectsIconInner{
+    width: 110px;
+    height: 110px;
+  }
+  #selectOption3Bottom{
+    top: 20px;
+  }
+  #selectOption3Top{
+    top: -20px;
+  }
+  #by3container{
+    background-size: unset;
+  }
+  .selectOption5Third {
+    margin-top: 40px;
+    gap: 60px;
+  }
+}
+@media screen and (min-width: 481px) {
+  .selectOption5Third {
+    gap: 80px;
+    margin-top: 60px;
+  }
+}
+/*  */

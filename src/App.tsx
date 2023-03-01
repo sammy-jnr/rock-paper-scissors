@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./All.css";
+import Home from "./Pages/Home/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RootState } from "./store"
+import { useSelector, useDispatch } from "react-redux"
+import Navigation from "./Pages/Navigation/Navigation";
+import Selectoption from "./Pages/Playgame/Selectoption";
+
 
 function App() {
+  let store = useSelector((store: RootState) => store)
+  const isLoggedIn = store.auth.isLoggedIn
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <div className="appInner">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/selectoption" element={<Selectoption />} />
+          </Routes>
+        </div>
+      </Router>
+      {!isLoggedIn && <Navigation/>}
     </div>
   );
 }

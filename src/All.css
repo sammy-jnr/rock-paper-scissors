@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.App{
+  width: 100vw;
+  min-height: 100vh;
+  height: 100vh;
+}
+.appInner{
+  position: relative;
+  width: 100%;
+  min-height: calc(100% - 80px);
+}
+.extraSmallIcon {
+  width: 10px;
+  position: relative;
+}
+
+.smallIcon {
+  width: 12px;
+  position: relative;
+}
+
+.small_medium {
+  width: 16px;
+  position: relative;
+}
+
+.mediumIcon {
+  width: 20px;
+  position: relative;
+}
+
+.largeIcon {
+  width: 28px;
+  position: relative;
+}
+
+.extraLargeIcon {
+  width: 40px;
+  position: relative;
+}
+.links{
+  all: unset;
+}
+.links:hover{
+  cursor: pointer;
+}
