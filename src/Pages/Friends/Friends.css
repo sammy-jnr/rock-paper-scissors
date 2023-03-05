@@ -1,0 +1,250 @@
+ul li {
+  list-style-type: none;
+}
+
+.friendsPage {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+.friendsPage header {
+  padding: 20px 15px;
+}
+
+.friendsPageInner {
+  padding: 10px;
+}
+
+.friendContainer {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: initial;
+  margin: 25px 0px;
+  display: flex;
+}
+
+.friendPFP {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.friendPFP div {
+  width: 70px;
+  height: 70px;
+  background-color: grey;
+  border-radius: 50%;
+}
+
+.friendInfo {
+  width: calc(100% - 100px);
+  height: 100%;
+}
+.friendInfo header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+}
+.friendInfo header p {
+  font-size: 20px;
+  font-weight: 600;
+}
+.friendInfo > div {
+  height: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.friendInfo > div div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(73, 73, 73);
+}
+.friendInfo > div div img {
+  margin-bottom: 5px;
+}
+
+.friendsPopupsContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: rgba(196, 196, 196, 0.2274509804);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+.removeFriendSection {
+  width: 80%;
+  max-width: 450px;
+  height: 170px;
+  background-color: #c0c0c0;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: 500;
+}
+.removeFriendSection p {
+  padding: 10px;
+  text-align: center;
+}
+.removeFriendSection footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+.removeFriendSection footer :first-child {
+  background-color: #e9e9ff;
+}
+.removeFriendSection footer :last-child {
+  background-color: #ffdfdf;
+}
+.removeFriendSection footer button {
+  padding: 10px;
+  width: 40%;
+  max-width: 150px;
+  border-radius: 3px;
+  border: none;
+  font-weight: 500;
+  color: rgb(39, 39, 39);
+}
+
+.gameChalleengeSection {
+  background-color: #c0c0c0;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+.gameChalleengeSection > p {
+  font-size: 25px;
+  font-weight: 500;
+}
+.gameChalleengeSection div:first-of-type {
+  font-size: 20px;
+  margin: 20px 0;
+  height: 80px;
+  width: 80px;
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.gameChalleengeSection div:last-of-type {
+  margin: 20px;
+}
+.gameChalleengeSection button {
+  padding: 10px;
+  border: none;
+  width: 60%;
+  max-width: 250px;
+  border-radius: 3px;
+  background-color: red;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 10px auto;
+}
+
+.friendChatContainer {
+  width: 100%;
+  height: 100%;
+}
+.friendChatContainer header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #ebebeb;
+}
+.friendChatContainer header h2 {
+  margin-left: 30px;
+  font-size: 25px;
+}
+
+.friendChatBody {
+  min-height: calc(100% - 78px);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageContainer {
+  padding: 13px 20px;
+  padding-bottom: 0;
+  max-width: 80%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  overflow-x: hidden;
+  word-break: break-all;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  background-color: #d4d4da;
+}
+
+.displayMessageTime {
+  position: relative;
+  right: -10px;
+  font-size: 12px;
+  margin: 5px 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  margin-left: auto;
+}
+
+.sentMessages {
+  margin-left: auto;
+  background-color: #06c706;
+}
+
+.inputSection {
+  width: 100%;
+  height: 91px;
+  background-color: white;
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  bottom: 0;
+}
+.inputSection textarea {
+  width: 80%;
+  resize: none;
+  padding: 5px;
+  min-height: 30px;
+  overflow-y: hidden;
+  border: none;
+  background-color: rgba(190, 190, 190, 0.0549019608);
+}
+.inputSection div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(128, 128, 128, 0.2196078431);
+  border-radius: 50%;
+}
+.inputSection div img {
+  position: relative;
+  left: 3px;
+}/*# sourceMappingURL=Friends.css.map */

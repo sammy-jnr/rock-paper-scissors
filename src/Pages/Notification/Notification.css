@@ -1,0 +1,108 @@
+.notificationPage {
+  width: 100%;
+  height: 100%;
+  background-color: #cecece;
+  color: #1f3756;
+}
+.notificationPage header {
+  padding: 17px;
+  margin-bottom: 20px;
+}
+
+.notificationPageInner {
+  width: 100%;
+  padding: 0 15px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.currentChallenge {
+  background: #f8f9ff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.currentChallenge header {
+  all: initial;
+  color: #1f3756;
+}
+.currentChallenge header p {
+  margin: 10px 0;
+}
+.currentChallenge footer {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.currentChallenge footer button {
+  width: calc(50% - 20px);
+  max-width: 200px;
+  padding: 9px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+}
+.currentChallenge footer :first-child {
+  background-color: #c74141;
+  color: #e6e6e6;
+}
+.currentChallenge footer :last-child {
+  background-color: #26943e;
+  color: #e6e6e6;
+}
+
+.otherNotifications {
+  background-color: white;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.receivedRequests {
+  background-color: rgba(247, 247, 247, 0.8235294118);
+  border-radius: 5px;
+  padding: 15px;
+}
+.receivedRequests p {
+  margin-bottom: 20px;
+}
+.receivedRequests footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.receivedRequests footer button {
+  width: calc(50% - 20px);
+  max-width: 200px;
+  padding: 9px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+}
+.receivedRequests footer :first-child {
+  background-color: #c74141;
+  color: #e6e6e6;
+}
+.receivedRequests footer :last-child {
+  background-color: #26943e;
+  color: #e6e6e6;
+}
+
+@media screen and (min-width: 769px) {
+  .currentChallenge footer {
+    justify-content: space-around;
+  }
+  .receivedRequests footer {
+    justify-content: space-around;
+  }
+}/*# sourceMappingURL=Notification.css.map */

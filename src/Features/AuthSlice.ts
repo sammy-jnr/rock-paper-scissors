@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { removeCookie } from "../utils/cookies";
 
 interface InitialState {
   isLoggedIn: boolean
@@ -13,22 +14,22 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers:{
-    loginState: (state, actions:PayloadAction<string>)=>{
-      switch (actions.payload) {
-        case "login":
-          state.isLoggedIn = true
-          break;
-        case "logout":
-        state.isLoggedIn = false
-          break;
-        default: return state
-      }
+    setIsLoggedIn: (state, actions:PayloadAction<boolean>)=>{
+      state.isLoggedIn = actions.payload
+    },
+    logOut: (state) => {
+      state.isLoggedIn = false
+      removeCookie("accessToken")
+      removeCookie("refreshToken")
     },
   }
 })
 
 export const {
-  loginState
+  setIsLoggedIn,
+  logOut,
 } = authSlice.actions
+
+console.log(initialState.isLoggedIn)
 
 export default authSlice.reducer

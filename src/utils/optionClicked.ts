@@ -1,16 +1,17 @@
-interface OfflineResult {
-  computerChoice: string;
-  verdict: string;
-}
-interface OnlineResult {
-  verdict: string
-}
+import { updateScore } from "./axiosCalls";
 
-export const optionClicked = (selectedOption:string,gameMode:string,playerMode:string,isLoggedIn:boolean): OnlineResult|OfflineResult|undefined =>{
-  if(!isLoggedIn){
-    return playerVsComputer(selectedOption,gameMode)
-  }
-  // else return {verdit: "hi"}
+// interface SinglePlayerResult {
+//   computerChoice: string;
+//   verdict: string;
+// }
+// interface MultiplayerResult {
+//   verdict: string
+// }
+
+export const optionClicked = (selectedOption:string,gameMode:string,playerMode:string,isLoggedIn:boolean) => {
+  const result = playerVsComputer(selectedOption,gameMode)
+  isLoggedIn && result && updateScore(result.verdict)
+  return result
 }
 const randomChoice = (gameMode:string) => {
   let optionsArray: string[];

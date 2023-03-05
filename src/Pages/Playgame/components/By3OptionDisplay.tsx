@@ -7,7 +7,6 @@ import { optionClicked } from "../../../utils/optionClicked"
 import { RootState } from "../../../store"
 import { useSelector, useDispatch } from "react-redux"
 import { setGameState, setSelectedOption, setOpponentOption, setGameProgress } from '../../../Features/MainSlice'
-
 const By3OptionDisplay = () => {
 
   const dispatch = useDispatch()
@@ -18,9 +17,9 @@ const By3OptionDisplay = () => {
   const isLoggedIn = store.auth.isLoggedIn
 
   const calculateVerdict = (selectedOption: string) => {
-    const result = optionClicked(selectedOption, gameMode, playerMode, isLoggedIn)
-    if (!result) return
-    if (typeof result === "object" && "computerChoice" in result) {
+    if (playerMode === "singleplayer") {
+      const result = optionClicked(selectedOption, gameMode, playerMode, isLoggedIn)
+      if (!result) return
       dispatch(setSelectedOption(selectedOption))
       dispatch(setGameState("optionSelected"))
       setTimeout(() => {
@@ -29,11 +28,12 @@ const By3OptionDisplay = () => {
       setTimeout(() => {
         dispatch(setGameProgress(result.verdict))
       }, 2000);
-    } else {
-      console.log(result)
+    }else{
+      dispatch(setSelectedOption(selectedOption))
+      dispatch(setGameState("optionSelected"))
     }
-  }
 
+  }
 
 
 

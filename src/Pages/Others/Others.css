@@ -1,0 +1,125 @@
+.rulesPage header {
+  background-color: #cecece75;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: initial;
+}
+.rulesPage header img {
+  margin-right: 30px;
+}
+.rulesPage header h2 {
+  color: #616f85;
+}
+.rulesPageInner {
+  padding: 20px;
+  max-width: 1000px;
+  margin-inline: auto;
+}
+.rulesPageInner div {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.rulesPageInner div img {
+  margin-bottom: 50px;
+}
+.searchUserPage {
+  width: 100%;
+  height: 100%;
+}
+.searchUserPage header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.searchUserPage header div {
+  border: 2px solid #0f0f22;
+  width: calc(100% - 50px);
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.searchUserPage header div input {
+  border: none;
+  background-color: transparent;
+  padding: 0 15px;
+  font-size: 16px;
+}
+.searchUserPage header div button {
+  border: none;
+  font-size: 16px;
+  border-radius: 0 30px 30px 0;
+  padding: 3px 10px;
+  background-color: #0f0f22;
+  color: #cecece;
+}
+
+
+
+.selectedUser {
+  padding: 30px 15px;
+  margin-inline: auto;
+  max-width: 1000px;
+  background-color: #cecece;
+  margin: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+.selectedUserInnerTop {
+ display: flex;
+ margin-bottom: 20px;
+ font-size: 22px;
+ font-weight: 500;
+ align-items: center;
+}
+.selectedUserInnerTop span{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #0f0f22;
+  margin-right: 20px;
+}
+
+.selectedUserInner{
+  display: flex;
+  flex-direction: column;
+}
+.selectedUserInnerButtonsDiv{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+}
+.selectedUserInnerButtonsDiv button {
+  width: 95%;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 3px;
+  border: none;
+  color: rgb(233, 233, 233);
+  font-size: 16px;
+}
+#addBtnSearchPage{
+  background-color: #45458d;
+}
+#challengeBtnSearchPage{
+  background-color: #40b340;
+  /* background-color: #b35340; */
+}
+
+@media screen and (min-width: 769px) {
+  .rulesPageInner div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+  }
+}
