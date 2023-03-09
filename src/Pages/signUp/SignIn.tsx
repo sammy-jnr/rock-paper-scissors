@@ -29,10 +29,11 @@ function SignIn() {
     e.preventDefault()
     login(logInEmail, loginPassword)
       .then((res) => { 
-        const { accessToken, refreshToken} = res.data
+        const {username, accessToken, refreshToken} = res.data
         setCookie("accessToken", accessToken, 1)
         setCookie("refreshToken", refreshToken, 30)
         dispatch(setIsLoggedIn(true))
+        localStorage.setItem("username", username)
         navigate("/")
       })
       .catch((err) => {

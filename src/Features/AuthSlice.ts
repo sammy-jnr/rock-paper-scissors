@@ -30,6 +30,5 @@ export const {
   logOut,
 } = authSlice.actions
 
-console.log(initialState.isLoggedIn)
 
 export default authSlice.reducer

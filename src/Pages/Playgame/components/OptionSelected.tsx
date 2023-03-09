@@ -8,16 +8,19 @@ import scissorsIcon from "../../../Assets/Icons/icon-scissors.svg"
 import lizardIcon from "../../../Assets/Icons/icon-lizard.svg"
 import spockIcon from "../../../Assets/Icons/icon-spock.svg"
 import { setGameState, setSelectedOption, setOpponentOption, setGameProgress } from '../../../Features/MainSlice'
-
+import { useNavigate } from 'react-router-dom'
+import { setcurrentChallengeDisplay } from '../../../Features/OnlineSlice'
 
 const OptionSelected = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const store = useSelector((store: RootState) => store)
   const selectedOption = store.main.selectedOption
   const opponentOption = store.main.opponentOption
   const gameProgress = store.main.gameProgress
   const isLoggedIn = store.auth.isLoggedIn
+  const currentChallenge = store.online.currentChallenge
 
 
 
@@ -27,6 +30,7 @@ const OptionSelected = () => {
     dispatch(setSelectedOption(""))
     dispatch(setOpponentOption(""))
     dispatch(setGameState("selectoption"))
+    navigate("/")
   }
 
 
@@ -120,7 +124,6 @@ const OptionSelected = () => {
           </div>
           <div id='newGame'
             onClick={reset}
-
           >
             New Game
           </div>
@@ -134,6 +137,15 @@ const OptionSelected = () => {
         {
           gameProgress === "nextround" &&
           <div className='nextRound'
+            onClick={() => {
+              dispatch(setGameProgress(""))
+              dispatch(setGameState("selectoption"))
+              dispatch(setOpponentOption(""))
+              dispatch(setSelectedOption(""))
+
+
+              currentChallenge && setcurrentChallengeDisplay({ ...currentChallenge })
+            }}
           >
             Next Round
           </div>

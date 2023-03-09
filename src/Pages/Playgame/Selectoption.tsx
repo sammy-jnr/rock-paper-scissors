@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Selectoption.css"
 import { RootState } from "../../store"
 import { useSelector, useDispatch } from "react-redux"
@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux"
 import By3OptionDisplay from './components/By3OptionDisplay'
 import By5OptionDisplay from './components/By5OptionDisplay'
 import OptionSelected from './components/OptionSelected'
+import { setShowNavClass } from '../../Features/MainSlice'
+import { setcurrentChallengeDisplay } from '../../Features/OnlineSlice'
 
 const Selectoption = () => {
   const dispatch = useDispatch()
@@ -14,7 +16,15 @@ const Selectoption = () => {
   const playerMode = store.main.playerMode
   const gameState = store.main.gameState
   const isLoggedIn = store.auth.isLoggedIn
-  const onlineSoloScore = store.online.onlineSoloScore
+  const currentChallengeDisplay = store.online.currentChallengeDisplay
+
+
+  useEffect(() => {
+    dispatch(setShowNavClass("noNav"))
+  }, []);
+
+
+
 
   return (
     <div id='selectOptionContainer'>
@@ -35,10 +45,10 @@ const Selectoption = () => {
               <div className='scoreInfo'>
                 <div id='scoreText'>SCORE</div>
                 <div id='scorevalue'>
-                  {isLoggedIn 
-                    ? 
-                    onlineSoloScore ?? 0 
-                    : 
+                  {isLoggedIn
+                    ?
+                    localStorage.getItem("onlineScore") ?? 0
+                    :
                     localStorage.getItem("score") ?? 0
                   }
                 </div>
@@ -46,12 +56,12 @@ const Selectoption = () => {
               :
               <div className='scoreInfo2'>
                 <div id="player1">
-                  <div>player1</div>
-                  <div>0</div>
+                  <div>{currentChallengeDisplay.me ?? "player1"}   </div>
+                  <div>{currentChallengeDisplay.myScore ?? 0}</div>
                 </div>
                 <div id="player2">
-                  <div>player2</div>
-                  <div>0</div>
+                  <div>{currentChallengeDisplay.opponent ?? "player2"}   </div>
+                  <div>{currentChallengeDisplay.opponentsScore ?? 0}</div>
                 </div>
               </div>
           }
@@ -70,7 +80,7 @@ const Selectoption = () => {
         </section>
         :
         <section className='selectedOption'>
-          <OptionSelected/>
+          <OptionSelected />
         </section>
       }
     </div>

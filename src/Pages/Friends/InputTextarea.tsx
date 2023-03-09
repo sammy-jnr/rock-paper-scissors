@@ -2,14 +2,18 @@ import React, { useRef, useState } from "react";
 import "./Friends.css";
 import sendIcon from "../../Assets/Icons/sendIcon.svg";
 
-function InputTextarea() {
+interface InputInterface {
+  sendMessage: (message: string) => void
+}
+
+
+function InputTextarea(props:InputInterface) {
   const inputRef: any = useRef(null);
   const inputContainerRef: any = useRef(null);
 
   const [inputStyle, setinputStyle] = useState<string>("hidden");
   const controlInputHeight = () => {
     if (parseFloat(inputRef.current.scrollHeight) > 126) {
-      console.log("wahala");
       setinputStyle("scroll");
       return;
     }
@@ -17,7 +21,7 @@ function InputTextarea() {
     inputRef.current.style.height = "auto";
     inputRef.current.style.height = inputRef.current.scrollHeight + "px";
     inputContainerRef.current.style.height =
-      inputRef.current.scrollHeight + 61 + "px";
+      inputRef.current.scrollHeight + 21 + "px";
   };
   return (
     <section className="inputSection" ref={inputContainerRef} style={{}}>
@@ -28,16 +32,22 @@ function InputTextarea() {
           overflow: inputStyle,
         }}
         onChange={(e) => {
-          console.log(inputRef.current?.scrollHeight);
           setinputStyle("hidden");
           controlInputHeight();
-          console.log(inputStyle);
         }}
         name=""
         id=""
         rows={1}
       ></textarea>
-      <div>
+      <div
+      onClick={()=> {
+        if(inputRef.current.value === "")return
+        props.sendMessage(inputRef.current.value)
+        inputRef.current.value = ""
+        setinputStyle("hidden");
+        controlInputHeight();
+      }}
+      >
         <img src={sendIcon} alt="" className="largeIcon" />
       </div>
     </section>

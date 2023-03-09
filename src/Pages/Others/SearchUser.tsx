@@ -3,12 +3,15 @@ import arrowLeft from "../../Assets/Icons/arrowLeft.svg"
 import { useNavigate } from "react-router-dom"
 import { RootState } from "../../store"
 import { useDispatch, useSelector } from "react-redux"
-import { RandomID } from '../../ID'
 import { getAllUsers, sendFriendResquestToDb, cancelFriendResquestSentToDb } from '../../utils/axiosCalls'
 import {
   setFriendRequestsSent,
   setFriendRequestsReceived
  } from '../../Features/OnlineSlice'
+ import { socket } from '../../App'
+
+
+
 interface SelectedArrayInterface {
   username: string,
   url: string,
@@ -38,13 +41,13 @@ function SearchUser() {
   useEffect(() => {
     getAllUsers()
       .then((res) => {
-        setallUsers(res.data.msg)
+        setallUsers(res.data.msg.filter((item:string) => item !== username))
       })
       .catch(() => console.log("couldn't fetch users"))
   }, []);
 
   useEffect(() => {
-    const tempArr:string[] = [username]
+    const tempArr:string[] = []
     friends.forEach(item => tempArr.push(item.username))
     setallUsers(allUsers.filter(item => !tempArr.includes(item.username)))
   }, [friends]);
@@ -65,18 +68,19 @@ function SearchUser() {
     sendFriendResquestToDb(username)
     .then((res)=>{
       dispatch(setFriendRequestsSent(res.data.msg))
+      socket.emit("newNotification", username)
     })
   }
   const cancelFriendRequestSent = (username:string) =>{
     cancelFriendResquestSentToDb(username)
     .then((res)=>{
       dispatch(setFriendRequestsSent(res.data.msg))
+      socket.emit("newNotification", username)
     })
   }
   function drawUsernameFromFriendObject() {
     const tempArr:string[] = []
     friends.forEach(item => tempArr.push(item.username))
-    console.log(tempArr)
   }
   drawUsernameFromFriendObject()
   const mapped = selectedArray.map((item, index) => {

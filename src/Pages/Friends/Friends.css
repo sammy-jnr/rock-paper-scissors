@@ -7,6 +7,7 @@ ul li {
   height: 100%;
   background-color: white;
 }
+
 .friendsPage header {
   padding: 20px 15px;
 }
@@ -16,13 +17,17 @@ ul li {
 }
 
 .friendContainer {
-  height: 100px;
+  height: 110px;
+  max-width: 700px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   justify-content: initial;
-  margin: 25px 0px;
+  margin: 15px auto;
   display: flex;
+  background-color: #e3e3e3;
+  padding: 0px 10px;
+  border-radius: 5px;
 }
 
 .friendPFP {
@@ -32,6 +37,7 @@ ul li {
   justify-content: center;
   align-items: center;
 }
+
 .friendPFP div {
   width: 70px;
   height: 70px;
@@ -43,6 +49,7 @@ ul li {
   width: calc(100% - 100px);
   height: 100%;
 }
+
 .friendInfo header {
   display: flex;
   justify-content: space-between;
@@ -50,16 +57,19 @@ ul li {
   height: 100%;
   padding: 0 20px;
 }
+
 .friendInfo header p {
   font-size: 20px;
   font-weight: 600;
 }
-.friendInfo > div {
+
+.friendInfo>div {
   height: 50%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
-.friendInfo > div div {
+
+.friendInfo>div div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,21 +78,25 @@ ul li {
   font-weight: 500;
   color: rgb(73, 73, 73);
 }
-.friendInfo > div div img {
+
+.friendInfo>div div img {
   margin-bottom: 5px;
 }
 
 .friendsPopupsContainer {
   position: fixed;
   width: 100%;
+  min-width: 100%;
+  min-height: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  background-color: rgba(196, 196, 196, 0.2274509804);
+  background-color: #c4c4c43a;
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 3;
 }
 
 .removeFriendSection {
@@ -94,10 +108,12 @@ ul li {
   padding: 20px;
   font-weight: 500;
 }
+
 .removeFriendSection p {
   padding: 10px;
   text-align: center;
 }
+
 .removeFriendSection footer {
   display: flex;
   justify-content: space-between;
@@ -105,12 +121,15 @@ ul li {
   justify-content: space-around;
   margin: 30px 0;
 }
+
 .removeFriendSection footer :first-child {
   background-color: #e9e9ff;
 }
+
 .removeFriendSection footer :last-child {
   background-color: #ffdfdf;
 }
+
 .removeFriendSection footer button {
   padding: 10px;
   width: 40%;
@@ -121,42 +140,87 @@ ul li {
   color: rgb(39, 39, 39);
 }
 
+#friendRemovalConfirmationDiv {
+  width: 90%;
+  max-width: 800px;
+  height: 150px;
+  background-color: #13134c;
+  border-radius: 15px;
+  color: white;
+}
+
+#friendRemovalConfirmationDiv p {
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+}
+
+#friendRemovalConfirmationDiv div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#friendRemovalConfirmationDiv div button {
+  width: 40%;
+  max-width: 200px;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#FPYesBtn {
+  background-color: #cc4428;
+  color: #e3e3e3;
+}
+
 .gameChalleengeSection {
-  background-color: #c0c0c0;
+  background-color: #8a948a;
   width: 80%;
+  max-width: 600px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   text-align: center;
 }
-.gameChalleengeSection > p {
-  font-size: 25px;
-  font-weight: 500;
-}
+
+
 .gameChalleengeSection div:first-of-type {
   font-size: 20px;
   margin: 20px 0;
-  height: 80px;
-  width: 80px;
-  background-color: grey;
+  height: 90px;
+  width: 90px;
+  background-color: #0d064d;
+  color: whitesmoke;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  border: 5px solid;
 }
+
 .gameChalleengeSection div:last-of-type {
   margin: 20px;
 }
+.gameChalleengeSection div:last-of-type p {
+  padding-bottom: 10px;
+  color: #00001c;
+  font-size: 20px;
+}
+
 .gameChalleengeSection button {
-  padding: 10px;
+  padding: 12px;
   border: none;
   width: 60%;
   max-width: 250px;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: red;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   margin: 10px auto;
 }
@@ -165,12 +229,17 @@ ul li {
   width: 100%;
   height: 100%;
 }
+
 .friendChatContainer header {
   padding: 20px;
   display: flex;
   align-items: center;
-  background-color: #ebebeb;
+  background-color: #ebebebf9;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
+
 .friendChatContainer header h2 {
   margin-left: 30px;
   font-size: 25px;
@@ -179,46 +248,40 @@ ul li {
 .friendChatBody {
   min-height: calc(100% - 78px);
   width: 100%;
+  max-width: 1000px;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 40px;
+  margin: auto;
+  background-color: #070521;
 }
 
 .messageContainer {
-  padding: 13px 20px;
-  padding-bottom: 0;
-  max-width: 80%;
+  padding: 15px 20px;
+  max-width: clamp(10%, 80%, 500px);
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   overflow-x: hidden;
   word-break: break-all;
+  flex-wrap: wrap;
   margin-bottom: 30px;
   border-radius: 5px;
-  background-color: #d4d4da;
+  background-color: #79797d;
+  color: white;
 }
 
-.displayMessageTime {
-  position: relative;
-  right: -10px;
-  font-size: 12px;
-  margin: 5px 0;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  display: flex;
-  margin-left: auto;
-}
 
 .sentMessages {
   margin-left: auto;
-  background-color: #06c706;
+  background-color: #069406;
 }
 
 .inputSection {
   width: 100%;
-  height: 91px;
-  background-color: white;
+  height: 51px;
+  background-color: #ebebeb;
   position: fixed;
   z-index: 2;
   display: flex;
@@ -227,6 +290,7 @@ ul li {
   padding: 0 20px;
   bottom: 0;
 }
+
 .inputSection textarea {
   width: 80%;
   resize: none;
@@ -234,17 +298,28 @@ ul li {
   min-height: 30px;
   overflow-y: hidden;
   border: none;
-  background-color: rgba(190, 190, 190, 0.0549019608);
+  background-color: transparent;
 }
+
 .inputSection div {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: rgba(128, 128, 128, 0.2196078431);
+  background-color: transparent;
   border-radius: 50%;
+  position: absolute;
+  right: 20px;
+  bottom: 2px;
 }
+
 .inputSection div img {
   position: relative;
   left: 3px;
-}/*# sourceMappingURL=Friends.css.map */
+}
+
+@media screen and (min-width: 1200px) {
+  .friendChatBody{
+    padding: 10px 30px 40px 30px;
+  }
+}

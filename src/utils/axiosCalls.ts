@@ -1,5 +1,6 @@
 import axios from "axios"
 import { AxiosResponse } from "axios"
+import { RandomID } from '../ID'
 import { getCookie } from "./cookies"
 
 const accessTokenCookie = getCookie("accessToken")
@@ -50,7 +51,7 @@ export const getUser = (username:string) => {
 export const getNewAccessToken = (username:string) => {
   return axios({
     withCredentials: true,
-    url: `${baseUrl}/refreshToken`,
+    url: `${baseUrl}/newAccessToken`,
     method: "post",
     data: {
       refreshToken: refreshTokenCookie,
@@ -70,7 +71,6 @@ export const updateScore = (verdict:string) => {
     headers: headers
   })
 }
-console.log("first")
 
 export const optionSelected = (option:string) => {
   return axios({
@@ -96,12 +96,13 @@ export const sendFriendResquestToDb = (friendUsername:string) => {
     url: `${baseUrl}/sendFriendRequest`,
     method: "post",
     data:{
-      friendUsername
+      friendUsername,
+      notificationId: RandomID()
     },
     headers: headers
   })
 }
-export const cancelFriendResquestSentToDb = (friendUsername:string) => {
+export const cancelFriendResquestSentToDb = (friendUsername:string, ) => {
   return axios({
     withCredentials: true,
     url: `${baseUrl}/cancelFriendRequest`,
@@ -112,4 +113,109 @@ export const cancelFriendResquestSentToDb = (friendUsername:string) => {
     headers: headers
   })
 }
+
+export const acceptFriendRequestToDb = (friendUsername:string, notificationId: string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/acceptFriendRequest`,
+    method: "post",
+    data:{
+      friendUsername,
+      notificationId
+    },
+    headers: headers
+  })
+}
+export const rejectFriendRequestToDb = (friendUsername:string, notificationId: string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/rejectFriendRequest`,
+    method: "post",
+    data:{
+      friendUsername,
+      notificationId
+    },
+    headers: headers
+  })
+}
+
+export const removeFriendDb = (friendUsername:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/removeFriend`,
+    method: "post",
+    data:{
+      friendUsername,
+    },
+    headers: headers
+  })
+}
+
+export const sendMessageDb = (friendUsername:string, message:string,) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/sendMessage`,
+    method: "post",
+    data:{
+      friendUsername,
+      message
+    },
+    headers: headers
+  })
+}
+export const sendChallengeDb = (opponentUsername:string,totalRounds:number,gameMode:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/sendChallenge`,
+    method: "post",
+    data:{
+      opponentUsername,
+      totalRounds,
+      gameMode,
+      notificationId: RandomID()
+    },
+    headers: headers
+  })
+}
+export const cancelChallengeDb = (opponentUsername:string, challengeId:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/cancelChallenge`,
+    method: "post",
+    data:{
+      opponentUsername,
+      challengeId
+    },
+    headers: headers
+  })
+}
+export const acceptChallengeDb = (opponentUsername:string, gameMode:string|undefined, totalRounds:number|undefined, notificationId:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/acceptChallenge`,
+    method: "post",
+    data:{
+      opponentUsername,
+      gameMode,
+      totalRounds,
+      notificationId
+    },
+    headers: headers
+  })
+}
+
+export const selectedOptionDb = (option:string, opponentUsername:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/selectedOption`,
+    method: "post",
+    data:{
+      option,
+      opponentUsername
+    },
+    headers: headers
+  })
+}
+
+
 

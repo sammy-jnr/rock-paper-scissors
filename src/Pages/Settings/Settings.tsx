@@ -7,7 +7,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { RootState } from "../../store"
 import { useSelector, useDispatch } from "react-redux"
-import { changeGameMode, changePlayerMode, sendNewNotification } from '../../Features/MainSlice'
+import { changeGameMode, changePlayerMode, sendNewNotification, setTotalRounds } from '../../Features/MainSlice'
 import { logOut } from "../../Features/AuthSlice";
 
 function Settings() {
@@ -16,6 +16,7 @@ function Settings() {
   const store = useSelector((store: RootState) => store)
   const playerMode = store.main.playerMode
   const gameMode = store.main.gameMode
+  const totalRounds = store.main.totalRounds
   const isLoggedIn = store.auth.isLoggedIn
 
 
@@ -26,6 +27,11 @@ function Settings() {
   const [soundSlider, setsoundSlider] = useState<number>(100);
   const [musicSlider, setmusicSlider] = useState<number>(100);
 
+  // const [totalRounds, settotalRounds] = useState<number>(5);
+const totalRoundsStyle = {
+  backgroundColor: "#1f3756",
+  color: "#cecece"
+}
   // const [gameMode, setgameMode] = useState<string>("RPS");
 
   const [showEditNameInput, setshowEditNameInput] = useState<boolean>(false);
@@ -198,6 +204,27 @@ function Settings() {
             </p>
           </div>
         </section>
+        {isLoggedIn && <div className="totalRounds"
+        ><header><p>Total Rounds</p><p id="trm">(Multiplayer)</p></header>
+          <div className="totalRoundsOptionDiv">
+            <p style={totalRounds === 1 ? totalRoundsStyle : undefined}
+            onClick={()=> dispatch(setTotalRounds(1))}
+            >1</p>
+            <p style={totalRounds === 3 ? totalRoundsStyle : undefined}
+            onClick={()=> dispatch(setTotalRounds(3))}
+            >3</p>
+            <p style={totalRounds === 5 ? totalRoundsStyle : undefined}
+            onClick={()=> dispatch(setTotalRounds(5))}
+            >5</p>
+            <p style={totalRounds === 7 ? totalRoundsStyle : undefined}
+            onClick={()=> dispatch(setTotalRounds(7))}
+            >7</p>
+            <p style={totalRounds === 9 ? totalRoundsStyle : undefined}
+            onClick={()=> dispatch(setTotalRounds(9))}
+            >9</p>
+           
+          </div>
+        </div>}
         <section className="quickSettingsToggle">
           <p>Show Quick Settings in home page</p>
           <div

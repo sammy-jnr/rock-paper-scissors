@@ -1,17 +1,13 @@
 import { updateScore } from "./axiosCalls";
 
-// interface SinglePlayerResult {
-//   computerChoice: string;
-//   verdict: string;
-// }
-// interface MultiplayerResult {
-//   verdict: string
-// }
 
-export const optionClicked = (selectedOption:string,gameMode:string,playerMode:string,isLoggedIn:boolean) => {
-  const result = playerVsComputer(selectedOption,gameMode)
+export const optionClicked = (selectedOption:string,gameMode:string,isLoggedIn:boolean) => {
+  const result = playerVsComputer(selectedOption,gameMode,isLoggedIn)
   isLoggedIn && result && updateScore(result.verdict)
   return result
+}
+export const optionClickedMultiplayer = (selectedOption:string,gameMode:string,isLoggedIn:boolean) => {
+  
 }
 const randomChoice = (gameMode:string) => {
   let optionsArray: string[];
@@ -60,31 +56,41 @@ const gameVerdict = (selectedOption:string, opponentsOption:string) => {
   }
 }
 
-const playerVsComputer = (selectedOption:string,gameMode:string) => {
+const playerVsComputer = (selectedOption:string,gameMode:string,isLoggedIn:boolean) => {
   let computerChoice = randomChoice(gameMode)
   let verdict = gameVerdict(selectedOption,computerChoice)
-  const score = localStorage.getItem("score")
+  const score = isLoggedIn ? localStorage.getItem("onlineScore") : localStorage.getItem("score")
   setTimeout(() => {
-    addScoreToLocalStorage(score, verdict)
+    addScoreToLocalStorage(score, verdict, isLoggedIn)
   }, 2000);
   if(verdict && computerChoice){
     return {computerChoice, verdict}
   }
 }
 
-const addScoreToLocalStorage = (score:string|null, verdict:string|undefined) => {
-  if(verdict === "won"){
-    score 
-    ? 
-    localStorage.setItem("score", String(Number(score) + 1))
-    :
-    localStorage.setItem("score", "1")
-  }else if (verdict === "lost"){
-    if(score === "0") return
-    score 
-    ? 
-    localStorage.setItem("score", String(Number(score) - 1))
-    :
-    localStorage.setItem("score", "0")
+const addScoreToLocalStorage = (score:string|null, verdict:string|undefined, isLoggedIn:boolean) => {
+
+  if(isLoggedIn){
+    if(verdict === "won"){
+      localStorage.setItem("onlineScore", String(Number(score) + 1))
+    }else if (verdict === "lost"){
+      if(score === "0") return
+      localStorage.setItem("onlineScore", String(Number(score) - 1))
+    }
+  }else{
+    if(verdict === "won"){
+      score 
+      ? 
+      localStorage.setItem("score", String(Number(score) + 1))
+      :
+      localStorage.setItem("score", "1")
+    }else if (verdict === "lost"){
+      if(score === "0") return
+      score 
+      ? 
+      localStorage.setItem("score", String(Number(score) - 1))
+      :
+      localStorage.setItem("score", "0")
+    }
   }
 }

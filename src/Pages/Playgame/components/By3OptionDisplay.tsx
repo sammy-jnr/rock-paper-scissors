@@ -7,18 +7,24 @@ import { optionClicked } from "../../../utils/optionClicked"
 import { RootState } from "../../../store"
 import { useSelector, useDispatch } from "react-redux"
 import { setGameState, setSelectedOption, setOpponentOption, setGameProgress } from '../../../Features/MainSlice'
+import { selectedOptionDb } from '../../../utils/axiosCalls'
+import { setCurrentChallenge, setcurrentChallengeDisplay } from '../../../Features/OnlineSlice'
+import { socket } from '../../../App'
+
+
+
 const By3OptionDisplay = () => {
 
   const dispatch = useDispatch()
   const store = useSelector((store: RootState) => store)
   const gameMode = store.main.gameMode
   const playerMode = store.main.playerMode
-  const gameState = store.main.gameState
+  const currentChallenge = store.online.currentChallenge
   const isLoggedIn = store.auth.isLoggedIn
 
   const calculateVerdict = (selectedOption: string) => {
     if (playerMode === "singleplayer") {
-      const result = optionClicked(selectedOption, gameMode, playerMode, isLoggedIn)
+      const result = optionClicked(selectedOption, gameMode, isLoggedIn)
       if (!result) return
       dispatch(setSelectedOption(selectedOption))
       dispatch(setGameState("optionSelected"))
@@ -29,10 +35,31 @@ const By3OptionDisplay = () => {
         dispatch(setGameProgress(result.verdict))
       }, 2000);
     }else{
-      dispatch(setSelectedOption(selectedOption))
-      dispatch(setGameState("optionSelected"))
+      optionClickedMultiplayer(selectedOption)
     }
 
+  }
+
+  const optionClickedMultiplayer = (selectedOption:string) =>{
+      if(!currentChallenge)return
+      dispatch(setGameState("optionSelected"))
+      dispatch(setcurrentChallengeDisplay({...currentChallenge, myChoice: selectedOption }))
+      dispatch(setSelectedOption(selectedOption))
+      console.log(currentChallenge.opponent)
+      selectedOptionDb(selectedOption, currentChallenge.opponent)
+      .then((res)=>{
+        if(res.data.msg === "successful"){
+          console.log(res.data.msg)
+          dispatch(setGameProgress("waiting"))
+          socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent)
+        }else{
+          let { verdict, opponentsChoice, myScore, opponentsScore, myChoice } = res.data
+          dispatch(setcurrentChallengeDisplay({...currentChallenge, opponentsChoice, myScore, opponentsScore }))
+          dispatch(setOpponentOption(opponentsChoice))
+          dispatch(setGameProgress(verdict))
+          socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent, verdict, myChoice, myScore, opponentsScore)
+        }
+      })
   }
 
 

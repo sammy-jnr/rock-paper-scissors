@@ -32,25 +32,27 @@ const friends = [
 ]
 
 interface NotificationInterface{
-  username: string,
+  sender: string,
   imgUrl: string,
   text: string,
   type: string,
-  id: string
+  id: string,
+  totalRounds?: number,
+  gameMode?: string
 }
 
-interface CurrentGameInterface {
-  myScore: Number,
-  opponentsScore: Number,
-  mode: String,
-  sender: String,
-  receiver: String,
-  roundsPlayed: Number,
-  totalRounds: Number,
-  isAccepted: Boolean,
-  myChoice: String,
-  opponentsChoice: String,
+interface CurrentChallengeInterface {
+  myScore: number,
+  opponentsScore: number,
+  mode: string,
+  me: string,
+  opponent: string,
+  roundsPlayed: number,
+  totalRounds: number,
+  myChoice: string,
+  opponentsChoice: string,
 }
+
 
 
 interface InitialState {
@@ -58,22 +60,37 @@ interface InitialState {
   onlineSoloScore: number
   friends: FriendInterface[],
   notifications: NotificationInterface[]
-  currentGame: CurrentGameInterface | undefined
+  currentChallenge: CurrentChallengeInterface | undefined
+  currentChallengeDisplay: CurrentChallengeInterface
   url: string,
   friendRequestsSent: string[], 
-  friendRequestsReceived: string[], 
+  friendRequestsReceived: string[],
+  multiplayerGameStarted: boolean
 }
 
+const currentChallengeDisplayInitialState = {
+  myScore: 0,
+  opponentsScore: 0,
+  mode: "RPS",
+  me: "You",
+  opponent: "Opponent",
+  roundsPlayed: 0,
+  totalRounds: 0,
+  myChoice: "",
+  opponentsChoice: "",
+}
 
 const initialState:InitialState = {
   username: "",
   onlineSoloScore: 0,
-  friends: friends,
+  friends: [],
   notifications: [],
-  currentGame: undefined,
+  currentChallenge: undefined,
+  currentChallengeDisplay: currentChallengeDisplayInitialState,
   url: "",
   friendRequestsSent: [], 
-  friendRequestsReceived: []
+  friendRequestsReceived: [],
+  multiplayerGameStarted: false
 }
 const onlineSlice = createSlice({
   name: "online",
@@ -85,14 +102,18 @@ const onlineSlice = createSlice({
     setOnlineScore: (state, action:PayloadAction<number>) => {
       state.onlineSoloScore = action.payload
     },
-    setFriendsArray: (state, action:PayloadAction<FriendInterface>) => {
-      state.friends = [...state.friends, action.payload]
+    setFriendsArray: (state, action:PayloadAction<FriendInterface[]>) => {
+      state.friends = action.payload
     },
-    setNotificationsArray: (state, action:PayloadAction<NotificationInterface>) => {
-      state.notifications = [...state.notifications, action.payload]
+    setNotificationsArray: (state, action:PayloadAction<NotificationInterface[]>) => {
+      if(!action.payload)return
+      state.notifications = action.payload
     },
-    setCurrentChallenge: (state, action:PayloadAction<CurrentGameInterface|undefined>) => {
-      state.currentGame = action.payload
+    setCurrentChallenge: (state, action:PayloadAction<CurrentChallengeInterface|undefined>) => {
+      state.currentChallenge = action.payload
+    },
+    setcurrentChallengeDisplay: (state, action:PayloadAction<CurrentChallengeInterface>) => {
+      state.currentChallengeDisplay = action.payload
     },
     setUrl: (state, action:PayloadAction<string>) => {
       state.url = action.payload
@@ -103,6 +124,9 @@ const onlineSlice = createSlice({
     setFriendRequestsReceived: (state, action:PayloadAction<string[]>) => {
       state.friendRequestsReceived = action.payload
     },
+    setMultiplayerGameStarted: (state, action:PayloadAction<boolean>) => {
+      state.multiplayerGameStarted = action.payload
+    },
     
 
   }
@@ -111,12 +135,14 @@ const onlineSlice = createSlice({
 export const {
   setUsername,
   setCurrentChallenge,
+  setcurrentChallengeDisplay,
   setFriendsArray,
   setNotificationsArray,
   setOnlineScore,
   setUrl,
   setFriendRequestsSent,
-  setFriendRequestsReceived
+  setFriendRequestsReceived,
+  setMultiplayerGameStarted
 } = onlineSlice.actions
 
 export default onlineSlice.reducer

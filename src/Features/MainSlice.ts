@@ -11,13 +11,18 @@ interface NotificationObjectInterface {
 interface InitialState {
   playerMode: string,
   gameMode: string,
+  totalRounds: number,
   gameState: string,
   gameProgress: string,
   selectedOption:string,
   opponentOption: string,
   notificationObj: NotificationObjectInterface
+  countdownStarted: boolean
+  showNavClass: string
   // verdict:string
 }
+
+const pathname = window.location.pathname
 
 let notificationObject = {
   backgroundColor: "",
@@ -25,16 +30,20 @@ let notificationObject = {
   status: false,
   time: 0,
   fontSize: 0
+  
 }
 
 const initialState:InitialState = {
   playerMode: "singleplayer",
   gameMode: "RPS",
+  totalRounds: 5,
   gameState: "selectoption",
   gameProgress: "",
   selectedOption:"",
   opponentOption: "",
-  notificationObj: notificationObject
+  notificationObj: notificationObject,
+  countdownStarted: false,
+  showNavClass: "appInner"
   // verdict: ""
 }
 
@@ -43,24 +52,19 @@ const mainSlice = createSlice({
   initialState,
   reducers:{
     changePlayerMode:(state, action: PayloadAction<string>)=>{
-      if (action.payload === "singleplayer"){
-        state.playerMode = "singleplayer"
-      }else{
-        state.playerMode = "multiplayer"
-      }
+      state.playerMode = action.payload
     },
     changeGameMode:(state, action: PayloadAction<string>)=>{
-      if (action.payload === "RPS"){
-        state.gameMode = "RPS"
-      }else{
-        state.gameMode = "RPSLS"
-      }
+      state.gameMode = action.payload
     },
     setGameState: (state, action: PayloadAction<string>) => {
         state.gameState = action.payload
     },
     setGameProgress: (state, action: PayloadAction<string>) => {
       state.gameProgress = action.payload
+    },
+    setTotalRounds: (state, action: PayloadAction<number>) => {
+      state.totalRounds = action.payload
     },
     setSelectedOption: (state, action: PayloadAction<string>) => {
       state.selectedOption = action.payload
@@ -75,6 +79,12 @@ const mainSlice = createSlice({
       state.notificationObj.text = action.payload.text
       state.notificationObj.time = action.payload.time
     },
+    setCountdownStarted: (state, actions:PayloadAction<boolean>) =>{
+      state.countdownStarted = actions.payload
+    },
+    setShowNavClass: (state, actions:PayloadAction<string>) =>{
+      state.showNavClass = actions.payload
+    }
     // setVerdict: (state, action: PayloadAction<string>) => {
     //   state.verdict = action.payload
     // },
@@ -88,7 +98,10 @@ export const {
   setGameProgress,
   setSelectedOption,
   setOpponentOption,
-  sendNewNotification
+  sendNewNotification,
+  setCountdownStarted,
+  setTotalRounds,
+  setShowNavClass
 } = mainSlice.actions
 
 export default mainSlice.reducer

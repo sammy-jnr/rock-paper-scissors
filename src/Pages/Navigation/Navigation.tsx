@@ -19,7 +19,7 @@ const Navigation = () => {
 
   const store = useSelector((store: RootState) => store)
   const isLoggedIn = store.auth.isLoggedIn
-
+  if(pathname.includes("/friends/")) return null
   return (
     <nav id='navigationContainer'>
       <div className="navItems"

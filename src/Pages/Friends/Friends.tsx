@@ -6,46 +6,29 @@ import messageIcon from "../../Assets/Icons/messageIcon.svg";
 import infoIcon from "../../Assets/Icons/infoIcon.svg";
 import FriendsPopups from "./FriendsPopups";
 import { RootState } from "../../store"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { updateScore } from '../../utils/axiosCalls'
-
+import { sendChallengeDb } from '../../utils/axiosCalls'
+import { socket } from '../../App'
+import { FriendInterface } from "../../interfaces";
 
 function Friends() {
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  
 
-  
-  updateScore("won")
+  const [showChallengePopup, setshowChallengePopup] = useState<boolean>(true);
 
-  
-  
-  
+  const [friendPopupType, setfriendPopupType] = useState<"remove" | "challenge" | undefined>();
+
+  const [challengeId, setchallengeId] = useState("");
+
 
   const store = useSelector((store: RootState) => store)
-  // const friendsArray = store.online.friends
+  const totalRounds = store.main.totalRounds
+  const gameMode = store.main.gameMode
+  const friendsArray = store.online.friends
 
-  const friendsArray = [
-    {
-    username: "mattew",
-    imgUrl: "string",
-    messages: []},
-    {
-    username: "mark",
-    imgUrl: "string",
-    messages: []},
-    {
-    username: "luke",
-    imgUrl: "string",
-    messages: []},
-    {
-    username: "john",
-    imgUrl: "string",
-    messages: []},
-  ]
 
   useEffect(() => {
     let tempArr: boolean[] = [];
@@ -54,19 +37,27 @@ function Friends() {
     });
     setfriendOptionArray(tempArr);
     setunchangingFriendOptionArray(tempArr);
-  }, []);
+  }, [friendsArray]);
 
   const [friendOptionArray, setfriendOptionArray] = useState<boolean[]>([]);
   const [unchangingFriendOptionArray, setunchangingFriendOptionArray] = useState<boolean[]>([]);
- 
 
-  const [currentFriendIndex, setcurrentFriendIndex] = useState<number|undefined>();
-  
 
-  
+  const [selectedFriend, setselectedFriend] = useState<FriendInterface | undefined>();
 
- 
- 
+
+  const sendChallenge = (opponentUsername: string) => {
+    sendChallengeDb(opponentUsername, totalRounds, gameMode)
+      .then((res) => {
+        console.log(res.data.msg)
+        setchallengeId(res.data.msg)
+        socket.emit("newNotification", opponentUsername)
+      })
+      .catch((err) => console.log(err))
+  }
+
+
+
 
   const mappedFriends = friendsArray.map((item, index) => {
     if (friendOptionArray.length === 0) return;
@@ -83,13 +74,12 @@ function Friends() {
                   prev[index] = false;
                   return [...prev];
                 });
-                setcurrentFriendIndex(undefined);
                 return;
               }
               let clonedArr = [...unchangingFriendOptionArray];
               clonedArr.splice(index, 1, !clonedArr[index]);
               setfriendOptionArray([...clonedArr]);
-              setcurrentFriendIndex(index);
+              setselectedFriend(friendsArray[index])
             }}
             style={{
               height: friendOptionArray[index] ? "50%" : "100%",
@@ -102,23 +92,26 @@ function Friends() {
             <div>
               <div
                 onClick={() => {
-                  console.log("removed");
+                  setfriendPopupType("remove")
+                  setshowChallengePopup(true)
                 }}
               >
                 <img src={removeIcon} className="small_medium" alt="" />
                 <p>Remove</p>
               </div>
-
               <div
-            
+                onClick={() => {
+                  setfriendPopupType("challenge")
+                  setshowChallengePopup(true)
+                  sendChallenge(item.username)
+                }}
               >
                 <img src={swordsIcon} className="small_medium" alt="" />
                 <p>Challenge</p>
               </div>
 
               <div
-              onClick={()=>{
-              }}
+                onClick={() => navigate(item.username)}
               >
                 <img src={messageIcon} className="small_medium" alt="" />
                 <p>Message</p>
@@ -132,7 +125,15 @@ function Friends() {
 
   return (
     <div className="friendsPage">
-      {/* {showChallengePopup && <FriendsPopups {...activeChallenge} />} */}
+      {showChallengePopup &&
+        <FriendsPopups
+          type={friendPopupType}
+          setshowChallengePopup={setshowChallengePopup}
+          setfriendPopupType={setfriendPopupType}
+          challengeId={challengeId}
+          selectedFriend={selectedFriend}
+        />
+      }
       <header>
         <h2>Friends</h2>
       </header>
