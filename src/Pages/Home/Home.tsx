@@ -16,6 +16,7 @@ const Home = () => {
   const playerMode = store.main.playerMode
   const isLoggedIn = store.auth.isLoggedIn
   const username = store.online.username
+  const url = store.online.url
 
   return (
     <div className='homeContainer'>
@@ -26,7 +27,9 @@ const Home = () => {
         <div id="usernameDiv">
           {isLoggedIn ?
             <>
-              <div id='userThumbnailHome'></div>
+              <div id='userThumbnailHome'>
+              {url && <img src={url} alt="" className='userThumbnailImages'/>}
+              </div>
               <div id="displayUsername">{username}</div>
             </>
             :
@@ -42,7 +45,6 @@ const Home = () => {
           <div
             onClick={() => {
               dispatch(changeGameMode(gameMode === "RPS" ? "RPSLS" : "RPS"))
-              console.log(gameMode)
             }}
             className="toogleContainer"
             style={{

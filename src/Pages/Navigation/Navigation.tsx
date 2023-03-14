@@ -30,7 +30,7 @@ const Navigation = () => {
         <p className='navItemsText'>Home</p>
       </div>
       <div className="navItems"
-        style={{ backgroundColor: pathname === "friends" ? "#0e0e36" : "" }}
+        style={{ backgroundColor: pathname === "/friends" ? "#0e0e36" : "" }}
         onClick={() => {
           if(!isLoggedIn){
             dispatch(sendNewNotification({

@@ -12,25 +12,6 @@ interface FriendInterface {
   messages: MessagesWithFriendInterface[]
 }
 
-const friends = [
-  {
-  username: "mattew",
-  imgUrl: "string",
-  messages: []},
-  {
-  username: "mark",
-  imgUrl: "string",
-  messages: []},
-  {
-  username: "luke",
-  imgUrl: "string",
-  messages: []},
-  {
-  username: "john",
-  imgUrl: "string",
-  messages: []},
-]
-
 interface NotificationInterface{
   sender: string,
   imgUrl: string,

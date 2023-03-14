@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import "./All.css";
 import { io } from "socket.io-client"
 import Home from "./Pages/Home/Home";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RootState } from "./store"
 import { useSelector, useDispatch } from "react-redux"
 import { setCookie, getCookie } from "./utils/cookies";
@@ -28,20 +28,23 @@ import Rules from "./Pages/Others/Rules";
 import SearchUser from "./Pages/Others/SearchUser";
 import SignUp from "./Pages/signUp/SignUp";
 import SignIn from "./Pages/signUp/SignIn";
-import Onboarding from "./Pages/signUp/Onboarding";
+import Onboarding from "./Pages/Others/Onboarding";
 import Friends from "./Pages/Friends/Friends";
 import Notification from "./Pages/Notification/Notification";
 import FriendChat from "./Pages/Friends/FriendChat";
+import ImagePreview from "./Pages/Settings/ImagePreview";
 import { NotificationInterface, CurrentGameInterface } from "./interfaces";
 import { setOpponentOption, setGameProgress } from "./Features/MainSlice";
 
 export const socket = io("http://localhost:5000")
 
 function App() {
+
+
   const dispatch = useDispatch()
   let store = useSelector((store: RootState) => store)
-  const isLoggedIn = store.auth.isLoggedIn
   const showNavClass = store.main.showNavClass
+  const isLoggedIn = store.auth.isLoggedIn
 
   const accessTokenCookie = getCookie("accessToken")
   const refreshTokenCookie = getCookie("refreshToken")
@@ -54,7 +57,7 @@ function App() {
       console.log(notifications)
       dispatch(setNotificationsArray(notifications));
     })
-    socket.on("challengeUpdated", (currentChallenge, verdict, opponentsChoice, myScore, opponentsScore) => {
+    socket.on("challengeUpdated", (currentChallenge, verdict, opponentsChoice) => {
       dispatch(setCurrentChallenge(currentChallenge));
       dispatch(setcurrentChallengeDisplay(currentChallenge));
       if (verdict) {
@@ -67,13 +70,15 @@ function App() {
       dispatch(setcurrentChallengeDisplay(currentChallenge));
       dispatch(setMultiplayerGameStarted(true))
     })
+    socket.on("receiveNewMessage", (updatedFriends) => {
+      dispatch(setFriendsArray(updatedFriends))
+    })
+
   }, []);
 
   const connectRoomSocketIO = (room: string) => {
     socket.emit("joinRoom", room)
   }
-
-
 
   useEffect(() => {
     const username = localStorage.getItem("username")
@@ -110,9 +115,7 @@ function App() {
         dispatch(setIsLoggedIn(false))
       }
     }
-  }, []);
-
-
+  }, [isLoggedIn]);
 
 
 
@@ -125,6 +128,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/selectoption" element={<Selectoption />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/imagepreview" element={<ImagePreview />} />
             <Route path="/rules" element={<Rules />} />
             <Route path="/search" element={<SearchUser />} />
             <Route path="/register" element={<SignUp />} />
@@ -133,6 +137,7 @@ function App() {
             <Route path="/friends" element={<Friends />} />
             <Route path="/friends/:name" element={<FriendChat />} />
             <Route path="/notifications" element={<Notification />} />
+            <Route path="/authenticate/google" element={<Onboarding />} />
 
           </Routes>
         </div>

@@ -8,6 +8,10 @@ import { RootState } from "../../store"
 import { login } from '../../utils/axiosCalls'
 import { setCookie } from "../../utils/cookies"
 import { setIsLoggedIn } from '../../Features/AuthSlice'
+import { setUsername } from '../../Features/OnlineSlice'
+import { googleLoginUrl } from '../../utils/google'
+import { Link } from 'react-router-dom'
+
 
 function SignIn() {
 
@@ -15,7 +19,9 @@ function SignIn() {
   const dispatch = useDispatch()
   const store = useSelector((store: RootState) => store)
 
-
+  useEffect(() => {
+    localStorage.setItem("path", "login")
+  }, []);
 
 
 
@@ -25,15 +31,21 @@ function SignIn() {
   const [wrongEmail, setwrongEmail] = useState<boolean>(false)
   const [wrongPassword, setwrongPassword] = useState<boolean>(false)
 
+  const [isLoading, setisLoading] = useState(false);
+
+
   const signIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (logInEmail.length < 2) return
+    setisLoading(true)
     login(logInEmail, loginPassword)
-      .then((res) => { 
-        const {username, accessToken, refreshToken} = res.data
+      .then((res) => {
+        const { username, accessToken, refreshToken } = res.data
         setCookie("accessToken", accessToken, 1)
         setCookie("refreshToken", refreshToken, 30)
-        dispatch(setIsLoggedIn(true))
+        dispatch(setUsername(username));
         localStorage.setItem("username", username)
+        dispatch(setIsLoggedIn(true))
         navigate("/")
       })
       .catch((err) => {
@@ -44,6 +56,7 @@ function SignIn() {
         if (error === "wrong password") {
           setwrongPassword(true)
         }
+        setisLoading(false)
       })
   }
 
@@ -60,16 +73,12 @@ function SignIn() {
             navigate("/")
           }}
         />
-        <section className='signWithGoogle'>
-          <img src={googleIcon} alt="" className='largeIcon' />
-          <p className='signWithGoogleText'
-            onClick={async () => {
-              try {
-              } catch (error: any) {
-              }
-            }}
-          >Login with Google</p>
-        </section>
+        <Link to={googleLoginUrl} className="links">
+          <section className='signWithGoogle'>
+            <img src={googleIcon} alt="" className='largeIcon' />
+            <p className='signWithGoogleText'>Login with Google</p>
+          </section>
+        </Link>
         <section className='orSection'>
           <hr className='orHr' />
           <div className='orDiv'>or</div>
@@ -95,7 +104,9 @@ function SignIn() {
             />
             {wrongPassword && <p className='errorText'>Incorrect password.</p>}
           </div>
-          <button className='signButton'>Login</button>
+          <button className='signButton'>
+            {isLoading ? <span className='generalLoadingIcon'></span> : "Login"}
+          </button>
         </form>
         <section className='getStartedExtraInfo'>
           <div style={{ marginBottom: 5 }}>Dont't have an account?

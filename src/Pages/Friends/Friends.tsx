@@ -60,11 +60,13 @@ function Friends() {
 
 
   const mappedFriends = friendsArray.map((item, index) => {
-    if (friendOptionArray.length === 0) return;
+    if (friendOptionArray.length === 0) return null;
     return (
       <div className="friendContainer" key={index}>
         <div className="friendPFP">
-          <div></div>
+          <div>
+            {item.imgUrl && <img src={item.imgUrl} alt="" className="userThumbnailImages"/>}
+          </div>
         </div>
         <div className="friendInfo">
           <header

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { defeatSound, victorySound, drawSound } from "../utils/audio";
 
 interface NotificationObjectInterface {
   text: string;
@@ -18,11 +19,9 @@ interface InitialState {
   opponentOption: string,
   notificationObj: NotificationObjectInterface
   countdownStarted: boolean
-  showNavClass: string
-  // verdict:string
+  showNavClass: string,
 }
 
-const pathname = window.location.pathname
 
 let notificationObject = {
   backgroundColor: "",
@@ -30,7 +29,6 @@ let notificationObject = {
   status: false,
   time: 0,
   fontSize: 0
-  
 }
 
 const initialState:InitialState = {
@@ -43,8 +41,7 @@ const initialState:InitialState = {
   opponentOption: "",
   notificationObj: notificationObject,
   countdownStarted: false,
-  showNavClass: "appInner"
-  // verdict: ""
+  showNavClass: "appInner",
 }
 
 const mainSlice = createSlice({
@@ -62,6 +59,15 @@ const mainSlice = createSlice({
     },
     setGameProgress: (state, action: PayloadAction<string>) => {
       state.gameProgress = action.payload
+      if(action.payload === "won"){
+        victorySound.play()
+      }
+      if(action.payload === "lost"){
+        defeatSound.play()
+      }
+      if(action.payload === "draw"){
+        drawSound.play()
+      }
     },
     setTotalRounds: (state, action: PayloadAction<number>) => {
       state.totalRounds = action.payload
@@ -84,10 +90,7 @@ const mainSlice = createSlice({
     },
     setShowNavClass: (state, actions:PayloadAction<string>) =>{
       state.showNavClass = actions.payload
-    }
-    // setVerdict: (state, action: PayloadAction<string>) => {
-    //   state.verdict = action.payload
-    // },
+    },
   }
 })
 
@@ -101,7 +104,7 @@ export const {
   sendNewNotification,
   setCountdownStarted,
   setTotalRounds,
-  setShowNavClass
+  setShowNavClass,
 } = mainSlice.actions
 
 export default mainSlice.reducer

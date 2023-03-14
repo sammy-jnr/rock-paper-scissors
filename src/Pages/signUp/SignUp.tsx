@@ -4,25 +4,25 @@ import closeIcon from "../../Assets/Icons/closeIcon.svg"
 import googleIcon from "../../Assets/Icons/googleIcon.svg"
 import closedEyesIcon from "../../Assets/Icons/closedEyesIcon.svg"
 import openEyesIcon from "../../Assets/Icons/openEyesIcon.svg"
-import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { RootState } from "../../store"
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { registerNewUser } from '../../utils/axiosCalls'
-import { setCookie, getCookie, removeCookie } from "../../utils/cookies"
-import {
-  setIsLoggedIn
- } from '../../Features/AuthSlice'
+import { setCookie } from "../../utils/cookies"
+import { setIsLoggedIn } from '../../Features/AuthSlice'
+import { socket } from '../../App'
+import { setUsername } from '../../Features/OnlineSlice'
+import { sendNewNotification } from '../../Features/MainSlice'
+import { googleLoginUrl } from '../../utils/google'
 
 
 function SignUp() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const store = useSelector((store: RootState) => store)
 
-
-
-
+  useEffect(() => {
+    localStorage.setItem("path", "register")
+  }, []);
 
   const [showPassword, setshowPassword] = useState<boolean>(false)
   const [username, setusername] = useState<string>("")
@@ -37,8 +37,15 @@ function SignUp() {
   const [wrongEmail, setwrongEmail] = useState<boolean>(false)
   const [shortPassword, setshortPassword] = useState<boolean>(false)
 
+  const [isNameTaken, setisNameTaken] = useState(false);
+  const [emailUnavailable, setemailUnavailable] = useState(false);
+
+
+  const [isLoading, setisLoading] = useState(false);
+
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (isLoading) return
     if (username.includes("@")) {
       setnameContainsAt(true)
       return
@@ -60,23 +67,41 @@ function SignUp() {
       setshortPassword(true)
       return
     }
-    try {
-      registerNewUser(username,email,password)
-      .then((res)=>{
-        if(!res) return console.log("an error occurred")
+    setisLoading(true)
+    registerNewUser(username, email, password)
+      .then((res) => {
+        if (!res) return console.log("an error occurred")
         const { username, accessToken, refreshToken } = res.data
         setCookie("accessToken", accessToken, 1)
-        setCookie("refreshToken", refreshToken, 30)
-        dispatch(setIsLoggedIn(true))
+        setCookie("refreshToken", refreshToken, 7)
+        socket.emit("joinRoom", username)
+        dispatch(setUsername(username));
         localStorage.setItem("username", username)
+        dispatch(setIsLoggedIn(true))
         navigate("/")
+        setisLoading(false)
       })
-    } catch (error: any) {
-      console.log(error.message)
-    }
-
+      .catch(error => {
+        setisLoading(false)
+        if (error.response.data.msg === "username unavailable") {
+          setisNameTaken(true)
+        } else if (error.response.data.msg === "email has been used please login") {
+          setemailUnavailable(true)
+        } else {
+          sendNewNotification({
+            backgroundColor: "red",
+            text: "An error occurred",
+            status: true,
+            time: 2000,
+            fontSize: 16
+          })
+        }
+      })
   }
+
+
   
+
 
   return (
     <div id='getStartedContainer'>
@@ -86,17 +111,12 @@ function SignUp() {
             navigate("/")
           }}
         />
-        <section className='signWithGoogle'
-          onClick={() => {
-            try {
-              // loginWithGoogle()
-            } catch (error: any) {
-            }
-          }}
-        >
-          <img src={googleIcon} alt="" className='largeIcon' />
-          <p className='signWithGoogleText'>Get Started with Google</p>
-        </section>
+        <Link to={googleLoginUrl} className="links">
+          <section className='signWithGoogle'>
+            <img src={googleIcon} alt="" className='largeIcon' />
+            <p className='signWithGoogleText'>Get Started with Google</p>
+          </section>
+        </Link>
         <section className='orSection'>
           <hr className='orHr' />
           <div className='orDiv'>or</div>
@@ -109,10 +129,12 @@ function SignUp() {
                 setusername(e.target.value)
                 setnameTooShort(false)
                 setnameContainsAt(false)
+                setisNameTaken(false)
               }}
             />
             {nameTooShort && <div className='warningText'>name is too short</div>}
             {nameContainsAt && <div className='warningText'>name must not contain @</div>}
+            {isNameTaken && <div className='warningText'>username taken</div>}
           </div>
           <div className='label'>
             <p className="miniText">Email</p>
@@ -120,9 +142,11 @@ function SignUp() {
               onChange={(e) => {
                 setemail(e.target.value)
                 setwrongEmail(false)
+                setemailUnavailable(false)
               }}
             />
             {wrongEmail && <div className='warningText'>Please enter a valid email address</div>}
+            {emailUnavailable && <div className='warningText'>Email has been used please login</div>}
           </div>
           <div className='label'>
             <p className="miniText">Password</p>
@@ -183,7 +207,9 @@ function SignUp() {
             </div>
             {!arePasswordsSame && <div className='warningText'>passwords don't match</div>}
           </div>
-          <button className='signButton'>Sign Up</button>
+          <button className='signButton'>
+            {isLoading ? <span className='generalLoadingIcon'></span> : "Sign Up"}
+          </button>
         </form>
         <section className='getStartedExtraInfo'>
           <div style={{ marginBottom: 5 }}>Already have an account?
@@ -191,12 +217,11 @@ function SignUp() {
               onClick={() => {
                 navigate("/login")
               }}
-            >Log In</span></div>
+            >Login</span></div>
           <div>Forgot password? <span className='blueText'>Click here</span></div>
         </section>
       </div>
     </div>
   )
 }
-//TODO MAKE LOGOUT BUTTON ONLY VISIBLE IF LOGGED IN
 export default SignUp

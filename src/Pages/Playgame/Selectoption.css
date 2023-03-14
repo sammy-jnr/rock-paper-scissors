@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .gameInfoPreview{
   margin: 0 auto;

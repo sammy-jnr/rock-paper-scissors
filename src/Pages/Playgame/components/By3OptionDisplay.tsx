@@ -3,6 +3,7 @@ import "./Components.css"
 import paperIcon from "../../../Assets/Icons/icon-paper.svg"
 import rockIcon from "../../../Assets/Icons/icon-rock.svg"
 import scissorsIcon from "../../../Assets/Icons/icon-scissors.svg"
+import { clickSound } from '../../../utils/audio'
 import { optionClicked } from "../../../utils/optionClicked"
 import { RootState } from "../../../store"
 import { useSelector, useDispatch } from "react-redux"
@@ -23,6 +24,7 @@ const By3OptionDisplay = () => {
   const isLoggedIn = store.auth.isLoggedIn
 
   const calculateVerdict = (selectedOption: string) => {
+    clickSound.play()
     if (playerMode === "singleplayer") {
       const result = optionClicked(selectedOption, gameMode, isLoggedIn)
       if (!result) return
@@ -34,41 +36,35 @@ const By3OptionDisplay = () => {
       setTimeout(() => {
         dispatch(setGameProgress(result.verdict))
       }, 2000);
-    }else{
+    } else {
       optionClickedMultiplayer(selectedOption)
     }
-
   }
 
-  const optionClickedMultiplayer = (selectedOption:string) =>{
-      if(!currentChallenge)return
-      dispatch(setGameState("optionSelected"))
-      dispatch(setcurrentChallengeDisplay({...currentChallenge, myChoice: selectedOption }))
-      dispatch(setSelectedOption(selectedOption))
-      console.log(currentChallenge.opponent)
-      selectedOptionDb(selectedOption, currentChallenge.opponent)
-      .then((res)=>{
-        if(res.data.msg === "successful"){
+  const optionClickedMultiplayer = (selectedOption: string) => {
+    if (!currentChallenge) return
+    dispatch(setGameState("optionSelected"))
+    dispatch(setcurrentChallengeDisplay({ ...currentChallenge, myChoice: selectedOption }))
+    dispatch(setSelectedOption(selectedOption))
+    console.log(currentChallenge.opponent)
+    selectedOptionDb(selectedOption, currentChallenge.opponent)
+      .then((res) => {
+        if (res.data.msg === "successful") {
           console.log(res.data.msg)
           dispatch(setGameProgress("waiting"))
           socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent)
-        }else{
+        } else {
           let { verdict, opponentsChoice, myScore, opponentsScore, myChoice } = res.data
-          dispatch(setcurrentChallengeDisplay({...currentChallenge, opponentsChoice, myScore, opponentsScore }))
+          dispatch(setcurrentChallengeDisplay({ ...currentChallenge, opponentsChoice, myScore, opponentsScore }))
           dispatch(setOpponentOption(opponentsChoice))
           dispatch(setGameProgress(verdict))
+          if(verdict === "won" || verdict === "lost"){
+            dispatch(setCurrentChallenge(undefined))
+          }
           socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent, verdict, myChoice, myScore, opponentsScore)
         }
       })
   }
-
-
-
-
-
-
-
-
 
 
   const PaperIcon = () => {
@@ -107,11 +103,11 @@ const By3OptionDisplay = () => {
   return (
     <div id='by3container'>
       <div id="selectOption3Top">
-        <PaperIcon />
+        <RockIcon />
         <ScissorsIcon />
       </div>
       <div id="selectOption3Bottom">
-        <RockIcon />
+        <PaperIcon />
       </div>
     </div>
   )

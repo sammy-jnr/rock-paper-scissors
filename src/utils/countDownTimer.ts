@@ -24,4 +24,3 @@ export const countdown = () => {
     timeLeft -=1;
   },1000)
 }
-// clearInterval(myInterval)

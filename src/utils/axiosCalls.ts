@@ -36,6 +36,29 @@ export const login = (email:string,password:string) => {
     }
   })
 }
+
+export const registerGoogle = (code:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/registerGoogle`,
+    method: "post",
+    data:{
+      code
+    }
+  })
+}
+export const loginGoogle = (code:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/loginGoogle`,
+    method: "post",
+    data:{
+      code
+    }
+  })
+}
+
+
 export const getUser = (username:string) => {
   return axios({
     withCredentials: true,
@@ -204,6 +227,18 @@ export const acceptChallengeDb = (opponentUsername:string, gameMode:string|undef
   })
 }
 
+export const deleteNotification = (notificationId:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/deleteNotification`,
+    method: "post",
+    data:{
+      notificationId
+    },
+    headers: headers
+  })
+}
+
 export const selectedOptionDb = (option:string, opponentUsername:string) => {
   return axios({
     withCredentials: true,
@@ -214,6 +249,32 @@ export const selectedOptionDb = (option:string, opponentUsername:string) => {
       opponentUsername
     },
     headers: headers
+  })
+}
+
+
+export const changeNameDb = (newName:string) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/changeName`,
+    method: "post",
+    data:{
+      newName
+    },
+    headers: headers
+  })
+}
+
+export const updateProfilePicture = (formData:FormData) => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/updateProfilePicture`,
+    method: "post",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      authorization: `Bearer ${accessTokenCookie}`,
+    }
   })
 }
 

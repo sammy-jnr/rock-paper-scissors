@@ -1,29 +1,17 @@
-import React, { useEffect } from 'react'
 import "./Selectoption.css"
 import { RootState } from "../../store"
 import { useSelector, useDispatch } from "react-redux"
-
 import By3OptionDisplay from './components/By3OptionDisplay'
 import By5OptionDisplay from './components/By5OptionDisplay'
 import OptionSelected from './components/OptionSelected'
-import { setShowNavClass } from '../../Features/MainSlice'
-import { setcurrentChallengeDisplay } from '../../Features/OnlineSlice'
 
 const Selectoption = () => {
-  const dispatch = useDispatch()
   const store = useSelector((store: RootState) => store)
   const gameMode = store.main.gameMode
   const playerMode = store.main.playerMode
   const gameState = store.main.gameState
   const isLoggedIn = store.auth.isLoggedIn
   const currentChallengeDisplay = store.online.currentChallengeDisplay
-
-
-  useEffect(() => {
-    dispatch(setShowNavClass("noNav"))
-  }, []);
-
-
 
 
   return (

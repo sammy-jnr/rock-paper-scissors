@@ -36,6 +36,11 @@
   background-color: green;
   border-radius: 50%;
 }
+.userThumbnailImages{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 #displayUsername{
   margin-top: 10px;
   font-size: 25px;

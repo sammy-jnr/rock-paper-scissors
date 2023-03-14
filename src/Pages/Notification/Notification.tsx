@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { RootState } from "../../store"
 import { useDispatch, useSelector } from "react-redux"
 import { RandomID } from '../../ID'
-import { acceptFriendRequestToDb, rejectFriendRequestToDb, acceptChallengeDb } from "../../utils/axiosCalls";
+import { acceptFriendRequestToDb, rejectFriendRequestToDb, acceptChallengeDb, deleteNotification } from "../../utils/axiosCalls";
 import { setNotificationsArray, setCurrentChallenge, setcurrentChallengeDisplay } from "../../Features/OnlineSlice";
 import { socket } from '../../App'
 import { NotificationInterface } from "../../interfaces";
@@ -23,21 +23,7 @@ function Notification() {
   const notificationArray = store.online.notifications
   const username = store.online.username
 
-
-  const currentChallenge = {
-    username: "",
-    opponentUsername: "",
-    mode: "gameMode",
-    myScore: 0,
-    opponentsScore: 0,
-    roundsPlayed: 0,
-    totalRounds: "bestOf",
-    isAccepted: true,
-    myChoice: "",
-    opponentsChoice: "",
-  }
-
-
+  const [isLoading, setisLoading] = useState<boolean>(false);
 
   const acceptChallenge = async (challengeRequest: NotificationInterface) => {
     await acceptChallengeDb(challengeRequest.sender, challengeRequest.gameMode, challengeRequest.totalRounds, challengeRequest.id)
@@ -71,22 +57,33 @@ function Notification() {
     socket.emit("challengeAccepted", challengeRequest.sender)
   }
 
+  const removeNotificationLocal = (notificationId: string) => {
+    const newNotifications = notificationArray.filter(item => item.id !== notificationId)
+    dispatch(setNotificationsArray(newNotifications))
+  }
+
+  const rejectChallenge = (notificationId: string) => {
+    removeNotificationLocal(notificationId)
+    deleteNotification(notificationId)
+      .catch(err => console.log(err))
+  }
   const acceptFriendRequest = async (friendUsername: string, notificationId: string) => {
+    removeNotificationLocal(notificationId)
     acceptFriendRequestToDb(friendUsername, notificationId)
-      .then((res) => {
-        dispatch(setNotificationsArray(res.data.msg))
-      })
+      .catch(err => console.log(err))
   }
   const rejectFriendRequest = async (friendUsername: string, notificationId: string) => {
+    removeNotificationLocal(notificationId)
     rejectFriendRequestToDb(friendUsername, notificationId)
       .then((res) => {
         dispatch(setNotificationsArray(res.data.msg))
       })
+      .catch(err => console.log(err))
   }
 
-  useEffect(() => {
-
-  }, []);
+useEffect(() => {
+  console.log(notificationArray)
+}, [notificationArray]);
 
 
 
@@ -99,10 +96,10 @@ function Notification() {
         {notificationArray.map((item, index) => {
           if (item.type === "friendRequest") {
             return (
-              <section className="receivedRequests" key={index}>
+              <section className="receivedRequests" key={item.id}>
                 <div>
                   <span>
-                    {/* <img src="" alt="" className="profileImgs"/>  */}
+                    {item.imgUrl && <img src={item.imgUrl} alt="" className="userThumbnailImages" />}
                   </span>
                   <p><b>{item.sender}</b> sent you a friend request</p>
                 </div>
@@ -121,9 +118,11 @@ function Notification() {
           }
           if (item.type === "challenge") {
             return (
-              <section className="receivedChallenge">
+              <section className="receivedChallenge" key={item.id}>
                 <header>
-                  <span></span>
+                  <span>
+                    {item.imgUrl && <img src={item.imgUrl} alt="" className="userThumbnailImages" />}
+                  </span>
                   <p>
                     {" "}
                     <b>{item.sender}</b> sent you a challenge
@@ -138,6 +137,7 @@ function Notification() {
                 <footer>
                   <button
                     onClick={() => {
+                      rejectChallenge(item.id)
                     }}
                   >Reject</button>
                   <button
@@ -150,10 +150,18 @@ function Notification() {
             )
           }
           return (
-            <section className="otherNotifications" key={index}>
+            <section className="otherNotifications" key={item.id}>
               <p><b>{item.sender}</b> {item.text}</p>
               <div>
-                <img src={trashIcon} className="mediumIcon" alt="" />
+                <img src={trashIcon}
+                  className="mediumIcon notificationTrashIcon"
+                  alt=""
+                  onClick={() => {
+                    removeNotificationLocal(item.id)
+                    deleteNotification(item.id)
+                      .catch(err => console.log(err))
+                  }}
+                />
               </div>
             </section>
           );

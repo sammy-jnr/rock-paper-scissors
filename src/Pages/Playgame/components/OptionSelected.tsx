@@ -7,7 +7,7 @@ import rockIcon from "../../../Assets/Icons/icon-rock.svg"
 import scissorsIcon from "../../../Assets/Icons/icon-scissors.svg"
 import lizardIcon from "../../../Assets/Icons/icon-lizard.svg"
 import spockIcon from "../../../Assets/Icons/icon-spock.svg"
-import { setGameState, setSelectedOption, setOpponentOption, setGameProgress } from '../../../Features/MainSlice'
+import { setGameState, setSelectedOption, setOpponentOption, setGameProgress, changePlayerMode } from '../../../Features/MainSlice'
 import { useNavigate } from 'react-router-dom'
 import { setcurrentChallengeDisplay } from '../../../Features/OnlineSlice'
 
@@ -19,7 +19,7 @@ const OptionSelected = () => {
   const selectedOption = store.main.selectedOption
   const opponentOption = store.main.opponentOption
   const gameProgress = store.main.gameProgress
-  const isLoggedIn = store.auth.isLoggedIn
+  const playerMode = store.main.playerMode
   const currentChallenge = store.online.currentChallenge
 
 
@@ -30,7 +30,8 @@ const OptionSelected = () => {
     dispatch(setSelectedOption(""))
     dispatch(setOpponentOption(""))
     dispatch(setGameState("selectoption"))
-    navigate("/")
+    dispatch(changePlayerMode("singleplayer"))
+    playerMode === "multiplayer" && navigate("/")
   }
 
 
@@ -136,19 +137,25 @@ const OptionSelected = () => {
         }
         {
           gameProgress === "nextround" &&
-          <div className='nextRound'
-            onClick={() => {
-              dispatch(setGameProgress(""))
-              dispatch(setGameState("selectoption"))
-              dispatch(setOpponentOption(""))
-              dispatch(setSelectedOption(""))
+          <>
+            <div id='roundsInfo'>
+              <p>Round</p> {currentChallenge?.roundsPlayed} / {currentChallenge?.totalRounds}
+            </div>
+            <div className='nextRound'
+              onClick={() => {
+                dispatch(setGameProgress(""))
+                dispatch(setGameState("selectoption"))
+                dispatch(setOpponentOption(""))
+                dispatch(setSelectedOption(""))
 
 
-              currentChallenge && setcurrentChallengeDisplay({ ...currentChallenge })
-            }}
-          >
-            Next Round
-          </div>
+                currentChallenge && setcurrentChallengeDisplay({ ...currentChallenge })
+              }}
+            >
+
+              Next Round
+            </div>
+          </>
         }
 
       </div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store"
 import { useDispatch, useSelector } from "react-redux"
 import { countdown, countdownTime, clearIntervalFunc } from "../../utils/countDownTimer";
-import { changeGameMode, changePlayerMode, setCountdownStarted } from "../../Features/MainSlice";
+import { changePlayerMode, setCountdownStarted } from "../../Features/MainSlice";
 import { removeFriendDb, cancelChallengeDb } from "../../utils/axiosCalls";
 import { setFriendsArray, setMultiplayerGameStarted } from "../../Features/OnlineSlice";
 import { socket } from '../../App'
@@ -46,6 +46,7 @@ function FriendsPopups(props: FriendsPopupInterface) {
     dispatch(setCountdownStarted(true))
     countdown()
     clearIntervalFunc(false)
+    
     return () => { clearInterval(myInterval) }
   }, [props.type]);
 

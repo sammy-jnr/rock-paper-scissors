@@ -7,11 +7,14 @@
   min-height: 100%;
   background-color: #cecece;
   color: #1f3756;
-  overflow-y: auto;
 }
 
-.settingsPage > header {
+.settingsPage>header {
   padding: 15px;
+  top: 0;
+  position: sticky;
+  background-color: #cecece;
+  z-index: 2;
 }
 
 .settingsPageInner {
@@ -37,6 +40,7 @@
   align-items: center;
   justify-content: initial;
 }
+
 .inputName input {
   height: 30px;
   width: calc(100% - 100px);
@@ -46,8 +50,10 @@
   padding: 0 10px;
   font-size: 16px;
 }
+
 .inputName button {
   height: 30px;
+  min-width: 72px;
   padding: 0 20px;
   display: flex;
   justify-content: center;
@@ -58,8 +64,13 @@
   border: none;
   border-radius: 3px;
 }
+#nameTakenText {
+  margin: 0 20px;
+  font-size: 14px;
+  color: red;
+}
 
-.changeImg {
+.uploadTextSettings {
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -67,32 +78,20 @@
   justify-content: space-between;
   margin: 15px 0;
 }
-.changeImg p {
+
+
+
+.uploadTextSettings p {
   font-weight: 500;
 }
-.changeImg > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.changeImg > div input {
-  width: 110px;
-  height: 35px;
-  z-index: 1;
-  position: absolute;
-  opacity: 0;
-}
-.changeImg > div div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+
+.uploadTextSettings  p:last-of-type {
+  margin-right: 10px;
   background-color: #1f3756;
   color: white;
   padding: 5px 15px;
   border-radius: 3px;
-}
-.changeImg > div div p {
-  margin-right: 10px;
 }
 
 .controlSound,
@@ -101,6 +100,7 @@
   padding: 10px;
   position: relative;
 }
+
 .controlSound p,
 .controlMusic p {
   font-weight: 500;
@@ -115,6 +115,7 @@
   justify-content: space-between;
   margin: 10px;
 }
+
 #soundSlider p,
 #musicSlider p {
   width: 55px;
@@ -126,11 +127,13 @@
 .totalRounds {
   padding: 10px;
 }
+
 .playerMode header p,
 .GameMode header p {
   font-weight: 500;
   margin-bottom: 10px;
 }
+
 .playerMode div p,
 .GameMode div p {
   background-color: rgba(206, 206, 206, 0.8);
@@ -138,22 +141,26 @@
   padding: 8px 5px;
   border-radius: 3px;
 }
-.totalRounds header{
+
+.totalRounds header {
   display: flex;
   align-items: center;
 }
-#trm{
+
+#trm {
   font-size: 13px;
   margin-left: 5px;
   color: grey;
 }
-.totalRoundsOptionDiv{
+
+.totalRoundsOptionDiv {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   border: 2px solid;
   margin: 10px 0;
   border-radius: 5px;
 }
+
 .totalRoundsOptionDiv p {
   text-align: center;
   padding: 5px 0;
@@ -166,6 +173,7 @@
   justify-content: space-between;
   padding: 20px 10px;
 }
+
 .quickSettingsToggle p {
   font-weight: 500;
 }
@@ -195,6 +203,7 @@
     max-width: 900px;
   }
 }
+
 .logoutBtn {
   padding: 10px;
   margin: 20px 10px;
@@ -204,4 +213,86 @@
   color: white;
   font-size: 19px;
   font-weight: 500;
+}
+/*  */
+.imagePreviewContainer {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+}
+.ImagePreviewIcon{
+  margin-bottom: 10px;
+}
+.imagePreviewInner {
+  height: calc(100% - 100px);
+  max-width: 1000px;
+  margin: auto;
+  background-color: #888b92;
+  border-radius: 10px;
+}
+
+.uploadImgSection {
+  height: 50%;
+  background-color: white;
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.noImgUploaded{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.noImgUploaded input{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.noImgUploaded p{
+  font-size: 25px;
+  color: #888b92;
+}
+#uploadedImgCancelIcon{
+  position: absolute;
+  width: 40px;
+  top: -35px;
+  right: -10px;
+}
+.imagePreview{
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+.ImgPreviewSection {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#croppedImage{
+  height: 60%;
+  max-height: 60%;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+.imagePreviewSubmitBtn{
+  all: unset;
+  position: absolute;
+  padding: 10px 0px;
+  background-color: #050520;
+  color: white;
+  border-radius: 30px;
+  width: 80%;
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 35px;
+  text-align: center;
+  font-size: large;
+  font-weight: 600;
 }

@@ -1,10 +1,12 @@
 .rulesPage header {
-  background-color: #cecece75;
+  background-color: #cecece;
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   justify-content: initial;
+  position: sticky;
+  top: 0;
 }
 .rulesPage header img {
   margin-right: 30px;
@@ -48,17 +50,23 @@
 .searchUserPage header div input {
   border: none;
   background-color: transparent;
-  padding: 0 15px;
+  padding: 3px 15px;
   font-size: 16px;
 }
-.searchUserPage header div button {
-  border: none;
-  font-size: 16px;
-  border-radius: 0 30px 30px 0;
-  padding: 3px 10px;
-  background-color: #0f0f22;
-  color: #cecece;
+#noUserDiv{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  border: 3px solid;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: 600;
+  background-color: #e2e2e2;
 }
+
+
 
 
 
@@ -122,4 +130,46 @@
     justify-content: space-around;
     flex-direction: row;
   }
+}
+/* onboarding page */
+.onbordingPage{
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  background: #c5c5c5dd;
+  box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4.5px);
+  -webkit-backdrop-filter: blur(4.5px);
+  display: grid;
+  place-items: center;
+  color: red;
+}
+.onboardingError{
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  border: 2px solid #45458d;
+  padding: 20px;
+  border-radius: 30px;
+  position: relative;
+  top: -50px;
+}
+.onboardingError header{
+  font-size: 25px;
+}
+.onboardingError hr{
+  margin-bottom: 30px;
+  border: 1px solid #45458d;
+}
+.onboardingError p{
+  font-size: 20px;
+}
+.onboardingError button{
+  all: unset;
+  color: #cecece;
+  margin: 30px 0 0 15px;
+  padding: 10px 30px;
+  background-color: #0f0f22;
+  border-radius: 5px;
 }

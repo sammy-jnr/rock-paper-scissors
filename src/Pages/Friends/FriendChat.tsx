@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setShowNavClass } from "../../Features/MainSlice";
 import { sendMessageDb } from "../../utils/axiosCalls";
 import { setFriendsArray } from "../../Features/OnlineSlice";
+import { socket } from '../../App'
 
 function FriendChat() {
   const params = useParams();
@@ -43,10 +44,11 @@ function FriendChat() {
     dispatch(setFriendsArray([...newFriendsArray, newFriendObject]))
   }
 
-  const sendMessage = (message: string) => {
+  const sendMessage = async (message: string) => {
     if (!params.name) return
-    sendMessageDb(params.name, message)
+    await sendMessageDb(params.name, message)
     updateMessageLocally(message)
+    socket.emit("sentNewMessage",username, params.name)
   }
 
   return (
