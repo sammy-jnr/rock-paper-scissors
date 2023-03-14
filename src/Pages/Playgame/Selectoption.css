@@ -73,3 +73,13 @@
   max-width: clamp(200px,90%, 800px );
 }
 
+@media screen and (min-width: 1000px) {
+  .gameSettingsPreview div{
+    font-size: 20px;
+  }
+  .gameSettingsPreview{
+    max-width: 90%;
+    margin: auto;
+  }
+}
+

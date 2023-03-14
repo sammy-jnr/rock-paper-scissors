@@ -56,7 +56,7 @@ function FriendChat() {
       <header>
         <img
           src={arrowLeft}
-          className="largeIcon"
+          className="largeIcon hoverable"
           alt=""
           onClick={() => {
             Navigate("/friends");

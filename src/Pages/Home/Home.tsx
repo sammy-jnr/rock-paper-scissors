@@ -1,10 +1,9 @@
-import React from 'react'
 import "./Home.css"
 import By3Logo from "../../Assets/Images/logo.svg"
 import By5Logo from "../../Assets/Images/logo-bonus.svg"
 import questionMarkIcon from "../../Assets/Icons/questionMark.svg"
 import searchIcon from "../../Assets/Icons/searchIcon.svg"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { RootState } from "../../store"
 import { useSelector, useDispatch } from "react-redux"
 import { changeGameMode, changePlayerMode, sendNewNotification } from '../../Features/MainSlice'
@@ -46,7 +45,7 @@ const Home = () => {
             onClick={() => {
               dispatch(changeGameMode(gameMode === "RPS" ? "RPSLS" : "RPS"))
             }}
-            className="toogleContainer"
+            className="toogleContainer hoverable"
             style={{
               backgroundColor: gameMode === "RPSLS" ? "#526074" : "#cecece",
               paddingLeft: gameMode === "RPSLS" ? "30px" : "5px",
@@ -60,7 +59,7 @@ const Home = () => {
             ></div>
           </div>
         </div>
-        <div className="controlPlayerMode">
+        <div className="controlPlayerMode hoverable">
           <p
             onClick={() => {
               dispatch(changePlayerMode("singleplayer"))
@@ -91,19 +90,19 @@ const Home = () => {
         </div>
       </section>
       <section className="gameSection">
-        <Link to={"/selectoption"} className="links startLink">
+        <Link to={"/selectoption"} className="links startLink hoverable">
           <div id='startGameText'>START GAME</div>
         </Link>
       </section>
 
       <section className="homePageExtras">
-        <Link to={"/rules"} className="links">
+        <Link to={"/rules"} className="links hoverable">
           <div className="rulesText">
             <p>RULES</p>
             <img src={questionMarkIcon} className="small_medium" alt="" />
           </div>
         </Link>
-        <Link to={"/search"} className="links">
+        <Link to={"/search"} className="links hoverable">
           <div className="searchText">
             <p>SEARCH</p>
             <img src={searchIcon} className="small_medium" alt="" />

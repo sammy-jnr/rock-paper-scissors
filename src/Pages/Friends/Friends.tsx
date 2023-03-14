@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Friends.css";
 import removeIcon from "../../Assets/Icons/removeIcon.svg";
 import swordsIcon from "../../Assets/Icons/swordsIcon.svg";
@@ -68,7 +68,7 @@ function Friends() {
             {item.imgUrl && <img src={item.imgUrl} alt="" className="userThumbnailImages"/>}
           </div>
         </div>
-        <div className="friendInfo">
+        <div className="friendInfo hoverable">
           <header
             onClick={() => {
               if (friendOptionArray[index] === true) {

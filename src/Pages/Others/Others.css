@@ -101,11 +101,12 @@
 .selectedUserInnerButtonsDiv{
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(2, 1fr); */
   place-items: center;
 }
 .selectedUserInnerButtonsDiv button {
   width: 95%;
+  max-width: 500px;
   padding: 10px;
   text-align: center;
   font-weight: 600;
@@ -116,10 +117,6 @@
 }
 #addBtnSearchPage{
   background-color: #45458d;
-}
-#challengeBtnSearchPage{
-  background-color: #40b340;
-  /* background-color: #b35340; */
 }
 
 @media screen and (min-width: 769px) {

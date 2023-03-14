@@ -3,8 +3,7 @@ import "./SignUp.css"
 import closeIcon from "../../Assets/Icons/closeIcon.svg"
 import googleIcon from "../../Assets/Icons/googleIcon.svg"
 import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { RootState } from "../../store"
+import { useDispatch } from "react-redux"
 import { login } from '../../utils/axiosCalls'
 import { setCookie } from "../../utils/cookies"
 import { setIsLoggedIn } from '../../Features/AuthSlice'
@@ -17,7 +16,6 @@ function SignIn() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const store = useSelector((store: RootState) => store)
 
   useEffect(() => {
     localStorage.setItem("path", "login")

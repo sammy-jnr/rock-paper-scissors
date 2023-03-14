@@ -145,3 +145,12 @@
 .rulesText p,.searchText p{
   margin-right: 10px;
 }
+
+@media screen and (min-width: 1000px) {
+  .controlPlayerMode > p {
+    font-size: 18px;
+  }
+  .rulesText,.searchText{
+    font-size: 18px;
+  }
+}

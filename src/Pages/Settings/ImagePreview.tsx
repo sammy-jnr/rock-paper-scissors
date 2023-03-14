@@ -86,7 +86,7 @@ function ImagePreview() {
     <div className='imagePreviewContainer'>
       <img src={arrowLeft}
         alt=""
-        className='extraLargeIcon ImagePreviewIcon'
+        className='extraLargeIcon ImagePreviewIcon hoverable'
         onClick={() => navigate("/settings")}
       />
       <div className="imagePreviewInner">
@@ -94,6 +94,7 @@ function ImagePreview() {
           {!uploadedFile ?
             <div className='noImgUploaded'>
               <input type="file"
+                className="hoverable"
                 ref={fileRef}
                 onChange={(e) => { onNewFile(e) }}
               />
@@ -114,7 +115,6 @@ function ImagePreview() {
           }
           {uploadedFile && <Cropper
             src={uploadedFileDataUrl}
-            // style={{ width: "100%" }}
             initialAspectRatio={1 / 1}
             guides={false}
             crop={onCrop}
@@ -126,7 +126,7 @@ function ImagePreview() {
           {croppedImage && <img src={croppedImage} alt="" id='croppedImage' />}
         </div>
       </div>
-      <button className='imagePreviewSubmitBtn'
+      <button className='imagePreviewSubmitBtn hoverable'
         onClick={submitFile}
       >
         {isLoading ? <span className='generalLoadingIcon'></span> : "Upload"}

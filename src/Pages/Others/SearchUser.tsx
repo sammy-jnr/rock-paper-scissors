@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import arrowLeft from "../../Assets/Icons/arrowLeft.svg"
 import { useNavigate } from "react-router-dom"
 import { RootState } from "../../store"
@@ -8,17 +8,7 @@ import {
   setFriendRequestsSent,
 } from '../../Features/OnlineSlice'
 import { socket } from '../../App'
-
-
-
-interface SelectedArrayInterface {
-  username: string,
-  url: string,
-  friends: {
-    username: string,
-    imgUrl: string
-  }[]
-}
+import { SelectedArrayInterface } from '../../interfaces'
 
 function SearchUser() {
 
@@ -27,7 +17,6 @@ function SearchUser() {
 
   const store = useSelector((store: RootState) => store)
   const friendRequestsSent = store.online.friendRequestsSent
-  const friends = store.online.friends
   const username = store.online.username
 
   const [allUsers, setallUsers] = useState<SelectedArrayInterface[]>([]);
@@ -49,7 +38,8 @@ function SearchUser() {
   const filterUsers = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newArray: SelectedArrayInterface[] = []
     allUsers.forEach(element => {
-      if (element.username.includes(e.target.value)) {
+      const length = e.target.value.length
+      if (element.username.toLocaleLowerCase().substring(0, length) === e.target.value.toLocaleLowerCase()) {
         newArray.push(element)
       }
     })
@@ -77,7 +67,7 @@ function SearchUser() {
       <div className='selectedUserInner'>
         <div className='selectedUserInnerTop'>
           <span>
-            {item.url && <img src={item.url} alt="" className='userThumbnailImages'/>}
+            {item.url && <img src={item.url} alt="" className='userThumbnailImages' />}
           </span>
           <p>{item.username}</p>
         </div>
@@ -98,7 +88,6 @@ function SearchUser() {
           >
             {friendRequestsSent.includes(item.username) ? "Cancel" : "Add friend"}
           </button>
-          <button id='challengeBtnSearchPage'>Challenge</button>
         </div>
       </div>
     </div>)

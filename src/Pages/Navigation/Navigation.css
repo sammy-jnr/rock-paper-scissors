@@ -31,6 +31,10 @@
     display: flex;
     padding: 20px;
   }
+  .navItems:hover{
+    cursor: pointer;
+    background-color: #0e0e5835;
+  }
   .navItemsText{
     display: block;
     color: white;

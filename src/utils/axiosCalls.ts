@@ -1,5 +1,4 @@
 import axios from "axios"
-import { AxiosResponse } from "axios"
 import { RandomID } from '../ID'
 import { getCookie } from "./cookies"
 

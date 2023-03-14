@@ -51,7 +51,7 @@ function Onboarding() {
           } else if (error.response.data.msg === "user not found") {
             seterror("User not found")
           } else {
-
+            seterror("An error occurred on the server")
           }
         })
     }

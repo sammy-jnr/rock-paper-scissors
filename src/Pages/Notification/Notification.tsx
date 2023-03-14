@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Notification.css";
 import trashIcon from "../../Assets/Icons/trash.svg";
 import { useNavigate } from "react-router-dom"
 import { RootState } from "../../store"
 import { useDispatch, useSelector } from "react-redux"
-import { RandomID } from '../../ID'
 import { acceptFriendRequestToDb, rejectFriendRequestToDb, acceptChallengeDb, deleteNotification } from "../../utils/axiosCalls";
 import { setNotificationsArray, setCurrentChallenge, setcurrentChallengeDisplay } from "../../Features/OnlineSlice";
 import { socket } from '../../App'
@@ -22,8 +21,6 @@ function Notification() {
   const store = useSelector((store: RootState) => store)
   const notificationArray = store.online.notifications
   const username = store.online.username
-
-  const [isLoading, setisLoading] = useState<boolean>(false);
 
   const acceptChallenge = async (challengeRequest: NotificationInterface) => {
     await acceptChallengeDb(challengeRequest.sender, challengeRequest.gameMode, challengeRequest.totalRounds, challengeRequest.id)
@@ -81,9 +78,9 @@ function Notification() {
       .catch(err => console.log(err))
   }
 
-useEffect(() => {
-  console.log(notificationArray)
-}, [notificationArray]);
+  useEffect(() => {
+    console.log(notificationArray)
+  }, [notificationArray]);
 
 
 
@@ -105,9 +102,11 @@ useEffect(() => {
                 </div>
                 <footer>
                   <button
+                    className="hoverable"
                     onClick={() => rejectFriendRequest(item.sender, item.id)}
                   >Reject</button>
                   <button
+                    className="hoverable"
                     onClick={() => {
                       acceptFriendRequest(item.sender, item.id)
                     }}
@@ -136,11 +135,13 @@ useEffect(() => {
                 </p>
                 <footer>
                   <button
+                    className="hoverable"
                     onClick={() => {
                       rejectChallenge(item.id)
                     }}
                   >Reject</button>
                   <button
+                    className="hoverable"
                     onClick={() => {
                       acceptChallenge(item)
                     }}
@@ -154,7 +155,7 @@ useEffect(() => {
               <p><b>{item.sender}</b> {item.text}</p>
               <div>
                 <img src={trashIcon}
-                  className="mediumIcon notificationTrashIcon"
+                  className="mediumIcon notificationTrashIcon hoverable"
                   alt=""
                   onClick={() => {
                     removeNotificationLocal(item.id)

@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Components.css"
 import paperIcon from "../../../Assets/Icons/icon-paper.svg"
 import rockIcon from "../../../Assets/Icons/icon-rock.svg"

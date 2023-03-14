@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import "./Popup.css"
 import { RootState } from "../store"
 import { useSelector, useDispatch } from "react-redux"
-import { changeGameMode, changePlayerMode, setGameState,sendNewNotification } from '../Features/MainSlice'
+import { sendNewNotification } from '../Features/MainSlice'
 
 
 const Popup = () => {

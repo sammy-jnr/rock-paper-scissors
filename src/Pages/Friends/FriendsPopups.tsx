@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Friends.css";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store"
@@ -8,15 +8,7 @@ import { changePlayerMode, setCountdownStarted } from "../../Features/MainSlice"
 import { removeFriendDb, cancelChallengeDb } from "../../utils/axiosCalls";
 import { setFriendsArray, setMultiplayerGameStarted } from "../../Features/OnlineSlice";
 import { socket } from '../../App'
-import { FriendInterface } from "../../interfaces";
-
-interface FriendsPopupInterface {
-  type: "remove" | "challenge" | undefined,
-  setshowChallengePopup: React.Dispatch<React.SetStateAction<boolean>>,
-  setfriendPopupType: React.Dispatch<React.SetStateAction<"remove" | "challenge" | undefined>>,
-  challengeId: string,
-  selectedFriend: FriendInterface | undefined
-}
+import { FriendsPopupInterface } from "../../interfaces";
 
 
 
@@ -46,7 +38,7 @@ function FriendsPopups(props: FriendsPopupInterface) {
     dispatch(setCountdownStarted(true))
     countdown()
     clearIntervalFunc(false)
-    
+
     return () => { clearInterval(myInterval) }
   }, [props.type]);
 
@@ -57,7 +49,7 @@ function FriendsPopups(props: FriendsPopupInterface) {
   }, [countdownTime]);
 
   useEffect(() => {
-    if(!multiplayerGameStarted)return
+    if (!multiplayerGameStarted) return
     navigate("/selectoption")
     dispatch(changePlayerMode("multiplayer"))
     dispatch(setMultiplayerGameStarted(false))
@@ -71,12 +63,12 @@ function FriendsPopups(props: FriendsPopupInterface) {
     dispatch(setCountdownStarted(false))
     props.setfriendPopupType(undefined)
     clearIntervalFunc(true)
-    console.log( props.challengeId)
+    console.log(props.challengeId)
     cancelChallengeDb(opponentUsername, props.challengeId)
-    .then(()=>{
-      socket.emit("newNotification", opponentUsername)
-    })
-    .catch((err) => console.log(err))
+      .then(() => {
+        socket.emit("newNotification", opponentUsername)
+      })
+      .catch((err) => console.log(err))
   }
 
   const removeFriend = (friendUsername: string) => {
@@ -98,13 +90,15 @@ function FriendsPopups(props: FriendsPopupInterface) {
             <p>Are you sure?</p>
             <div>
               <button
+                className="hoverable"
                 onClick={() => props.setshowChallengePopup(false)}
               >No</button>
               <button id="FPYesBtn"
+                className="hoverable"
                 onClick={() => {
                   props.setshowChallengePopup(false)
                   // remove the friend instantly before the database returns a response
-                  if(props.selectedFriend === undefined)return
+                  if (props.selectedFriend === undefined) return
                   let friendUsername = props.selectedFriend.username
                   console.log(friendUsername)
                   dispatch(setFriendsArray(friends.filter(item => item.username !== friendUsername)))
@@ -126,8 +120,9 @@ function FriendsPopups(props: FriendsPopupInterface) {
               </p>
             </div>
             <button
-              onClick={() => { 
-                props.selectedFriend && cancelChallenge(props.selectedFriend.username) 
+              className="hoverable"
+              onClick={() => {
+                props.selectedFriend && cancelChallenge(props.selectedFriend.username)
               }}
             >Cancel</button>
           </section>

@@ -37,3 +37,20 @@ export interface FriendInterface {
   imgUrl: string,
   messages: MessagesWithFriendInterface[]
 }
+
+export interface FriendsPopupInterface {
+  type: "remove" | "challenge" | undefined,
+  setshowChallengePopup: React.Dispatch<React.SetStateAction<boolean>>,
+  setfriendPopupType: React.Dispatch<React.SetStateAction<"remove" | "challenge" | undefined>>,
+  challengeId: string,
+  selectedFriend: FriendInterface | undefined
+}
+
+export interface SelectedArrayInterface {
+  username: string,
+  url: string,
+  friends: {
+    username: string,
+    imgUrl: string
+  }[]
+}

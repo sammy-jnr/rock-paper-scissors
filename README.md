@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# A multiplayer Rock Paper Scissors game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the digital version on the game we all know and love.
+There is a saying ask your friend a question just before the game and they will pick scissors, well let's see if that also works here
 
-## Available Scripts
+## Player Modes
 
-In the project directory, you can run:
+The game has two player modes 
+<br>
+<br>
 
-### `npm start`
+- **Single player**
+Here you can player against the computer in a fair game, it works whether you are logged in or not.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Multiplayer**
+You can player against other players that are logged in, and you have to be logged in as well.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Game Modes
 
-### `npm test`
+The game also has two game modes 
+<br>
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Rock Paper Scissors and Rock Paper Scissors Spock Lizard**
 
-### `npm run build`
+**Rock Paper Scissor** is the normal mode we all play while,
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Rock Paper Scissors Spock Lizard** is similar, but has two additional options, rather than more explanations just try it.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Rules
 
-### `npm run eject`
+The rules remain the same, but you can go to the rules pages to refresh your memory, and see how the second mode works
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Users
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can search for users globally as long as you know their usernames, you can then send them friend requests.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Friends
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+When you send a friend request, and it is accepted, the user is added to your friends list,
+from there you can either text, or challenge the user
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Settings 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You can perform a variety of changes in the settings which includes, changing username, and profile picture.
+You can also set the volume of both sound and background music
+
+## Notifications
+
+Every other thing happens here,
+You can check who sent a friend request, or who challenged you as well as other notifications
+
+
+## [Start playing](https://reactjs.org/).

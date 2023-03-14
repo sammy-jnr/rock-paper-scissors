@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./Friends.css";
 import sendIcon from "../../Assets/Icons/sendIcon.svg";
 
@@ -48,7 +48,7 @@ function InputTextarea(props:InputInterface) {
         controlInputHeight();
       }}
       >
-        <img src={sendIcon} alt="" className="largeIcon" />
+        <img src={sendIcon} alt="" className="largeIcon hoverable" />
       </div>
     </section>
   );

@@ -97,7 +97,7 @@ function Settings() {
         <h2>Settings</h2>
       </header>
       <div className="settingsPageInner">
-        <section className="changeName">
+        <section className="changeName hoverable">
           <div
             className="changeNameText"
             onClick={() => {
@@ -105,7 +105,7 @@ function Settings() {
               setshowEditNameInput((prev) => !prev);
             }}
           >
-            <p>Change name</p>
+            <p className="hoverable">Change name</p>
             {!showEditNameInput && (
               <img src={editIcon} className="smallIcon" alt="" />
             )}
@@ -137,6 +137,7 @@ function Settings() {
         <section className="uploadTextSettings">
           <p>Update profile picture</p>
           <p
+            className="hoverable"
             onClick={() => {
               if(!isLoggedIn)return
               navigate("imagepreview")
@@ -178,6 +179,7 @@ function Settings() {
         <section className="quickSettingsToggle">
           <p>Toggle music</p>
           <div
+            className="hoverable"
             onClick={() => {
               setisMusicPlaying((prev) => !prev);
               if (isMusicPlaying) {
@@ -249,10 +251,12 @@ function Settings() {
               onClick={() => {
                 dispatch(changePlayerMode("singleplayer"))
               }}
+              className="hoverable"
             >
               Single Player
             </p>
             <p
+              className="hoverable"
               style={{
                 backgroundColor:
                   playerMode === "multiplayer" ? "#1f3756" : "#cecececc",
@@ -281,6 +285,7 @@ function Settings() {
           </header>
           <div>
             <p
+              className="hoverable"
               style={{
                 backgroundColor: gameMode === "RPS" ? "#1f3756" : "#cecececc",
                 color: gameMode === "RPS" ? "white" : "#1f3756",
@@ -292,6 +297,7 @@ function Settings() {
               Rock Paper Scissors
             </p>
             <p
+              className="hoverable"
               style={{
                 backgroundColor: gameMode === "RPSLS" ? "#1f3756" : "#cecececc",
                 color: gameMode === "RPSLS" ? "white" : "#1f3756",
@@ -306,7 +312,7 @@ function Settings() {
         </section>
         {isLoggedIn && <div className="totalRounds"
         ><header><p>Total Rounds</p><p id="trm">(Multiplayer)</p></header>
-          <div className="totalRoundsOptionDiv">
+          <div className="totalRoundsOptionDiv hoverable">
             <p style={totalRounds === 1 ? totalRoundsStyle : undefined}
               onClick={() => dispatch(setTotalRounds(1))}
             >1</p>
@@ -325,7 +331,7 @@ function Settings() {
 
           </div>
         </div>}
-        {isLoggedIn && <div className="logoutBtn"
+        {isLoggedIn && <div className="logoutBtn hoverable"
           onClick={() => dispatch(logOut())}
         >
           logout

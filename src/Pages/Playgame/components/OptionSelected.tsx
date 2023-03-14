@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Components.css"
 import { RootState } from "../../../store"
 import { useSelector, useDispatch } from "react-redux"
@@ -113,7 +112,7 @@ const OptionSelected = () => {
         </div>
         <div id='optionSelectedContainerTopText'>
           <p>YOU PICKED</p>
-          <p>THE HOUSE PICKED</p>
+          <p>{playerMode === "multiplayer" ? "OPPONENT PICKED" : "THE HOUSE PICKED"}</p>
         </div>
       </div>
       <div id="optionSelectedContainerBottom">
@@ -124,6 +123,7 @@ const OptionSelected = () => {
             {gameProgress === "draw" && "Draw"}
           </div>
           <div id='newGame'
+            className="hoverable"
             onClick={reset}
           >
             New Game
@@ -141,7 +141,7 @@ const OptionSelected = () => {
             <div id='roundsInfo'>
               <p>Round</p> {currentChallenge?.roundsPlayed} / {currentChallenge?.totalRounds}
             </div>
-            <div className='nextRound'
+            <div className='nextRound hoverable'
               onClick={() => {
                 dispatch(setGameProgress(""))
                 dispatch(setGameState("selectoption"))

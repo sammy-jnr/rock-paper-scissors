@@ -1,6 +1,6 @@
 import "./Selectoption.css"
 import { RootState } from "../../store"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import By3OptionDisplay from './components/By3OptionDisplay'
 import By5OptionDisplay from './components/By5OptionDisplay'
 import OptionSelected from './components/OptionSelected'

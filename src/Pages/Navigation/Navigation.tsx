@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Navigation.css"
 import homeIcon from "../../Assets/Icons/homeIcon.svg";
 import friendsIconL from "../../Assets/Icons/friendsIconL.svg";
@@ -19,6 +18,8 @@ const Navigation = () => {
 
   const store = useSelector((store: RootState) => store)
   const isLoggedIn = store.auth.isLoggedIn
+
+  
   if(pathname.includes("/friends/")) return null
   return (
     <nav id='navigationContainer'>
