@@ -1,11 +1,14 @@
+import { useEffect } from "react"
 import "./Selectoption.css"
 import { RootState } from "../../store"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import By3OptionDisplay from './components/By3OptionDisplay'
 import By5OptionDisplay from './components/By5OptionDisplay'
 import OptionSelected from './components/OptionSelected'
-
+import { setcurrentChallengeDisplay } from "../../Features/OnlineSlice"
+import { setGameProgress, setGameState } from "../../Features/MainSlice"
 const Selectoption = () => {
+  const dispatch = useDispatch()
   const store = useSelector((store: RootState) => store)
   const gameMode = store.main.gameMode
   const playerMode = store.main.playerMode
@@ -13,6 +16,25 @@ const Selectoption = () => {
   const isLoggedIn = store.auth.isLoggedIn
   const currentChallengeDisplay = store.online.currentChallengeDisplay
 
+  const currentChallengeDisplayInitialState = {
+    myScore: 0,
+    opponentsScore: 0,
+    mode: "RPS",
+    me: "You",
+    opponent: "Opponent",
+    roundsPlayed: 0,
+    totalRounds: 0,
+    myChoice: "",
+    opponentsChoice: "",
+  }
+
+  useEffect(() => {
+    return () => {
+      dispatch(setcurrentChallengeDisplay(currentChallengeDisplayInitialState))
+      dispatch(setGameProgress(""))
+      dispatch(setGameState("selectoption"))
+    }
+  }, []);
 
   return (
     <div id='selectOptionContainer'>

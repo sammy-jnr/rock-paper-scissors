@@ -1,0 +1,77 @@
+.notFoundContainer {
+  position: fixed;
+  width: 100vw;
+  min-height: 100vh;
+  background-image: linear-gradient(40deg, rgb(61, 3, 255), rgb(179, 76, 31));
+  z-index: 3;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.pageNotFoundIcon {
+  width: 100%;
+  margin: 0 auto;
+  filter: brightness(120%);
+  filter: contrast(120%);
+  filter: drop-shadow(10px 10px 10px rgb(63, 70, 63));
+
+}
+
+.notFoundContainer h1 {
+  font-weight: 600;
+  text-align: center;
+  width: 90%;
+  font-size: 1.75em;
+  margin: 0 auto;
+}
+
+.notFoundContainer p {
+  text-align: center;
+  margin: 50px 20px;
+}
+
+.notFoundContainer button {
+  width: 80%;
+  max-width: 500px;
+  margin: auto auto 50px auto;
+  background-color: black;
+  color: #f5f5f5;
+  padding: 10px;
+  border-radius: 30px;
+  border: none;
+
+}
+
+@media screen and (min-width: 768px) {
+  .pageNotFoundIcon {
+    width: 65%;
+  }
+
+  .notFoundContainer h1 {
+    font-size: 3em;
+  }
+
+  .notFoundContainer p {
+    font-size: 25px;
+  }
+
+  .notFoundContainer button {
+    padding: 15px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .pageNotFoundIcon {
+    width: 55%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .pageNotFoundIcon {
+    width: 50%;
+    max-width: 650px;
+  }
+}

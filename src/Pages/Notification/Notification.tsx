@@ -8,7 +8,7 @@ import { acceptFriendRequestToDb, rejectFriendRequestToDb, acceptChallengeDb, de
 import { setNotificationsArray, setCurrentChallenge, setcurrentChallengeDisplay } from "../../Features/OnlineSlice";
 import { socket } from '../../App'
 import { NotificationInterface } from "../../interfaces";
-import { changeGameMode, changePlayerMode } from "../../Features/MainSlice";
+import { changeGameMode, changePlayerMode, setGameProgress, setGameState } from "../../Features/MainSlice";
 
 
 
@@ -28,6 +28,8 @@ function Notification() {
     navigate("/selectoption")
     challengeRequest.gameMode && dispatch(changeGameMode(challengeRequest.gameMode))
     dispatch(changePlayerMode("multiplayer"))
+    dispatch(setGameProgress(""))
+    dispatch(setGameState("selectoption"))
     if (!challengeRequest.totalRounds || !challengeRequest.gameMode) return
     dispatch(setCurrentChallenge({
       myScore: 0,
@@ -116,6 +118,7 @@ function Notification() {
             );
           }
           if (item.type === "challenge") {
+            console.log(item)
             return (
               <section className="receivedChallenge" key={item.id}>
                 <header>

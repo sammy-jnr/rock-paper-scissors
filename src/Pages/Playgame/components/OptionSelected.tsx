@@ -20,6 +20,7 @@ const OptionSelected = () => {
   const gameProgress = store.main.gameProgress
   const playerMode = store.main.playerMode
   const currentChallenge = store.online.currentChallenge
+  const currentChallengeDisplay = store.online.currentChallengeDisplay
 
 
 
@@ -139,7 +140,7 @@ const OptionSelected = () => {
           gameProgress === "nextround" &&
           <>
             <div id='roundsInfo'>
-              <p>Round</p> {currentChallenge?.roundsPlayed} / {currentChallenge?.totalRounds}
+              <p>Round</p> {currentChallengeDisplay?.roundsPlayed} / {currentChallengeDisplay?.totalRounds}
             </div>
             <div className='nextRound hoverable'
               onClick={() => {

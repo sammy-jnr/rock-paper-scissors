@@ -12,7 +12,7 @@ import { setIsLoggedIn } from '../../Features/AuthSlice'
 import { socket } from '../../App'
 import { setUsername } from '../../Features/OnlineSlice'
 import { sendNewNotification } from '../../Features/MainSlice'
-import { googleLoginUrl } from '../../utils/google'
+import { googleRegisterUrl } from '../../utils/google'
 
 
 function SignUp() {
@@ -22,6 +22,7 @@ function SignUp() {
 
   useEffect(() => {
     localStorage.setItem("path", "register")
+    localStorage.setItem("randomnigga", "bla bla bla")
   }, []);
 
   const [showPassword, setshowPassword] = useState<boolean>(false)
@@ -89,7 +90,7 @@ function SignUp() {
           setemailUnavailable(true)
         } else {
           sendNewNotification({
-            backgroundColor: "red",
+            backgroundColor: "#c9184a",
             text: "An error occurred",
             status: true,
             time: 2000,
@@ -111,7 +112,7 @@ function SignUp() {
             navigate("/")
           }}
         />
-        <Link to={googleLoginUrl} className="links">
+        <Link to={googleRegisterUrl} className="links">
           <section className='signWithGoogle'>
             <img src={googleIcon} alt="" className='largeIcon' />
             <p className='signWithGoogleText'>Get Started with Google</p>
@@ -213,12 +214,12 @@ function SignUp() {
         </form>
         <section className='getStartedExtraInfo'>
           <div style={{ marginBottom: 5 }}>Already have an account?
-            <span className='blueText'
+            <span className='blueText hoverable'
               onClick={() => {
                 navigate("/login")
               }}
             >Login</span></div>
-          <div>Forgot password? <span className='blueText'>Click here</span></div>
+          <div>Forgot password? <span className='blueText hoverable'>Click here</span></div>
         </section>
       </div>
     </div>

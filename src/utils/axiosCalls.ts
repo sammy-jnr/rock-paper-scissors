@@ -58,7 +58,7 @@ export const loginGoogle = (code:string) => {
 }
 
 
-export const getUser = (username:string) => {
+export const getUser = (username:string, accessToken:string) => {
   return axios({
     withCredentials: true,
     url: `${baseUrl}/user`,
@@ -66,7 +66,10 @@ export const getUser = (username:string) => {
     data:{
       username,
     },
-    headers: headers
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${accessToken}`,
+    }
   })
 }
 
@@ -247,6 +250,14 @@ export const selectedOptionDb = (option:string, opponentUsername:string) => {
       option,
       opponentUsername
     },
+    headers: headers
+  })
+}
+export const clearMultiplayerGameDb = () => {
+  return axios({
+    withCredentials: true,
+    url: `${baseUrl}/clearMultiplayerGame`,
+    method: "put",
     headers: headers
   })
 }

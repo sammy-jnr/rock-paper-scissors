@@ -112,10 +112,10 @@ function SignIn() {
               onClick={() => {
                 navigate("/register")
               }}
-              className='blueText'
+              className='blueText hoverable'
             >Sign up</span>
           </div>
-          <div>forgot password? <span className='blueText'>Click here</span></div>
+          <div>forgot password? <span className='blueText hoverable'>Click here</span></div>
         </section>
       </div>
     </div>

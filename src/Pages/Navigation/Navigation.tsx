@@ -35,7 +35,7 @@ const Navigation = () => {
         onClick={() => {
           if(!isLoggedIn){
             dispatch(sendNewNotification({
-              backgroundColor: "red",
+              backgroundColor: "#c9184a",
               text: "Login to access that page",
               fontSize: 15,
               status: true,
@@ -61,7 +61,7 @@ const Navigation = () => {
         onClick={()=>{
           if(!isLoggedIn){
             dispatch(sendNewNotification({
-              backgroundColor: "red",
+              backgroundColor: "#c9184a",
               text: "Login to access that page",
               fontSize: 15,
               status: true,

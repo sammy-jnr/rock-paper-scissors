@@ -7,7 +7,7 @@ import { RootState } from "./store"
 import { useSelector, useDispatch } from "react-redux"
 import { setCookie, getCookie } from "./utils/cookies";
 import { getUser, getNewAccessToken } from "./utils/axiosCalls";
-import { setIsLoggedIn } from "./Features/AuthSlice";
+import { setIsLoggedIn, setInitialLoading } from "./Features/AuthSlice";
 import {
   setCurrentChallenge,
   setUsername,
@@ -34,7 +34,9 @@ import Notification from "./Pages/Notification/Notification";
 import FriendChat from "./Pages/Friends/FriendChat";
 import ImagePreview from "./Pages/Settings/ImagePreview";
 import { NotificationInterface, CurrentGameInterface } from "./interfaces";
-import { setOpponentOption, setGameProgress } from "./Features/MainSlice";
+import { setOpponentOption, setGameProgress, setGameState } from "./Features/MainSlice";
+import ProtectedRoutes from "./ProtectedRoutes";
+import NotFound from "./Pages/404/NotFound";
 
 export const socket = io("http://localhost:5000")
 
@@ -50,7 +52,7 @@ function App() {
   const refreshTokenCookie = getCookie("refreshToken")
 
   useEffect(() => {
-    socket.on("connect", () => {
+    socket.on("connect", () => {  
       console.log("connected soccet")
     })
     socket.on("updateNotifications", (notifications: NotificationInterface[]) => {
@@ -69,10 +71,20 @@ function App() {
       dispatch(setCurrentChallenge(currentChallenge));
       dispatch(setcurrentChallengeDisplay(currentChallenge));
       dispatch(setMultiplayerGameStarted(true))
+      dispatch(setGameProgress(""))
+      dispatch(setGameState("selectoption"))
     })
     socket.on("receiveNewMessage", (updatedFriends) => {
       dispatch(setFriendsArray(updatedFriends))
     })
+
+    return () => {
+      socket.off("connect")
+      socket.off("updateNotifications")
+      socket.off("challengeUpdated")
+      socket.off("startMultiplayerGame")
+      socket.off("receiveNewMessage")
+    }
 
   }, []);
 
@@ -81,10 +93,11 @@ function App() {
   }
 
   useEffect(() => {
+    dispatch(setInitialLoading(true))
     const username = localStorage.getItem("username")
     if (!username) return
     if (accessTokenCookie) {
-      getUser(username)
+      getUser(username, accessTokenCookie)
         .then((res) => {
           const { username, score, friends, notifications, url, currentChallenge, friendRequestsSent, friendRequestsReceived } = res.data;
           dispatch(setOnlineScore(score));
@@ -98,6 +111,7 @@ function App() {
           dispatch(setFriendRequestsReceived(friendRequestsReceived));
           dispatch(setIsLoggedIn(true));
           connectRoomSocketIO(username)
+          dispatch(setInitialLoading(false))
         })
         .catch(() => console.log("couldn't fetch user"))
       return;
@@ -110,14 +124,18 @@ function App() {
             setCookie("accessToken", newAccessToken, 1)
             setCookie("refreshToken", newRefreshToken, 7)
             dispatch(setIsLoggedIn(true));
+            dispatch(setInitialLoading(false))
           })
       } else {
         dispatch(setIsLoggedIn(false))
+        dispatch(setInitialLoading(false))
       }
     }
   }, [isLoggedIn]);
 
-
+  window.addEventListener("storage", function(e) {
+    console.debug(e);
+ }, false);
 
   return (
     <div className="App">
@@ -128,17 +146,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/selectoption" element={<Selectoption />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/settings/imagepreview" element={<ImagePreview />} />
             <Route path="/rules" element={<Rules />} />
             <Route path="/search" element={<SearchUser />} />
             <Route path="/register" element={<SignUp />} />
             <Route path="/login" element={<SignIn />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/friends" element={<Friends />} />
-            <Route path="/friends/:name" element={<FriendChat />} />
-            <Route path="/notifications" element={<Notification />} />
-            <Route path="/authenticate/google" element={<Onboarding />} />
-
+            <Route path="/authenticate/google/:action" element={<Onboarding />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/settings/imagepreview" element={<ImagePreview />} />
+              <Route path="/friends" element={<Friends />} />
+              <Route path="/friends/:name" element={<FriendChat />} />
+              <Route path="/notifications" element={<Notification />} />
+            </Route>
+            <Route path="*" element={<NotFound/>}/>
           </Routes>
         </div>
         <Navigation />

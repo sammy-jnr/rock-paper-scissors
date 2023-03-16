@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { loginGoogle, registerGoogle } from '../../utils/axiosCalls'
 import * as queryString from 'query-string';
 import { setCookie } from '../../utils/cookies';
@@ -11,22 +11,24 @@ import { setIsLoggedIn } from '../../Features/AuthSlice';
 
 function Onboarding() {
 
+  const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const urlParams = queryString.default.parse(window.location.search);
 
 
-  const [isLoading, setisLoading] = useState<boolean|null>(null);
+  const [isLoading, setisLoading] = useState<boolean | null>(null);
   const [error, seterror] = useState("");
 
   useEffect(() => {
     if (typeof urlParams.code !== "string") return
-    if(isLoading)return
+    console.log(params.action)
+    if (isLoading) return
+    console.log(isLoading)
     setisLoading(true)
-    console.log("trial")
     const code = urlParams.code
-    const googleAction = localStorage.getItem("path")
-    if (googleAction === "register") {
+    if (params.action === "register") {
+      console.log(code)
       registerGoogle(code)
         .then((res) => {
           if (!res) return console.log("an error occurred")
@@ -55,7 +57,7 @@ function Onboarding() {
           }
         })
     }
-    if (googleAction === "login") {
+    if (params.action === "login") {
       loginGoogle(code)
         .then((res) => {
           if (!res) return console.log("an error occurred")
@@ -84,7 +86,7 @@ function Onboarding() {
           }
         })
     }
-  }, [urlParams]);
+  }, []);
 
 
 
@@ -99,8 +101,9 @@ function Onboarding() {
             <header>Error</header>
             <hr />
             <p>{error}</p>
-            <button onClick={() => { 
-              localStorage.getItem("path") && navigate(`/${localStorage.getItem("path")}`) }}>Try again</button>
+            <button onClick={() => {
+              navigate(`/${params.action}`)
+            }}>Try again</button>
           </div>
       }
     </div>

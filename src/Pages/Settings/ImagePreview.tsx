@@ -34,6 +34,18 @@ function ImagePreview() {
     const files = e.currentTarget.files
     if (files) {
       const file = files[0]
+      if (file.size > 2048000) {
+        dispatch(sendNewNotification({
+          backgroundColor: "#c9184a",
+          text: "File cannot be more than 2MB",
+          fontSize: 15,
+          status: true,
+          time: 3000
+        }))
+        if(fileRef.current)
+        fileRef.current.value = ""
+        return
+      }
       setuploadedFile(file)
       const reader = new FileReader()
       reader.onload = (e) => {
@@ -57,7 +69,7 @@ function ImagePreview() {
         setisLoading(false)
         dispatch(setUrl(res.data.url))
         dispatch(sendNewNotification({
-          backgroundColor: "green",
+          backgroundColor: "#2d6a4f",
           text: "Updated",
           fontSize: 16,
           status: true,
@@ -72,7 +84,7 @@ function ImagePreview() {
       .catch(() => {
         setisLoading(false)
         dispatch(sendNewNotification({
-          backgroundColor: "red",
+          backgroundColor: "#c9184a",
           text: "An error occured",
           fontSize: 15,
           status: true,

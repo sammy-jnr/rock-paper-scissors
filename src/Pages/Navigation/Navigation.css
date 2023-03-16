@@ -10,6 +10,10 @@
   display: grid;
   place-items: center;
 }
+.navItems:hover{
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
 .friendsIcon{
   width: 36px;
 }

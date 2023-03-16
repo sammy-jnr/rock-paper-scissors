@@ -46,9 +46,9 @@ function FriendChat() {
 
   const sendMessage = async (message: string) => {
     if (!params.name) return
-    await sendMessageDb(params.name, message)
     updateMessageLocally(message)
-    socket.emit("sentNewMessage",username, params.name)
+    await sendMessageDb(params.name, message)
+    socket.emit("sentNewMessage", username, params.name)
   }
 
   return (

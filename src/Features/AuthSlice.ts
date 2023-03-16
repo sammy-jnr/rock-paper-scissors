@@ -3,11 +3,13 @@ import { removeCookie } from "../utils/cookies";
 
 interface InitialState {
   isLoggedIn: boolean
+  initialLoading: boolean
 }
 
 
 const initialState:InitialState = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  initialLoading: true
 }
 
 const authSlice = createSlice({
@@ -22,12 +24,16 @@ const authSlice = createSlice({
       removeCookie("accessToken")
       removeCookie("refreshToken")
     },
+    setInitialLoading: (state, action:PayloadAction<boolean>)=> {
+      state.initialLoading = action.payload
+    }
   }
 })
 
 export const {
   setIsLoggedIn,
   logOut,
+  setInitialLoading
 } = authSlice.actions
 
 

@@ -75,7 +75,7 @@ const Home = () => {
               dispatch(changePlayerMode("multiplayer"))
               :
               dispatch(sendNewNotification({
-                backgroundColor: "red",
+                backgroundColor: "#c9184a",
                 text: "You are not logged in.",
                 fontSize: 15,
                 status: true,

@@ -23,9 +23,9 @@ The game also has two game modes
 
 **Rock Paper Scissors and Rock Paper Scissors Spock Lizard**
 
-**Rock Paper Scissor** is the normal mode we all play while,
+- **Rock Paper Scissor** is the normal mode we all play while,
 
-**Rock Paper Scissors Spock Lizard** is similar, but has two additional options, rather than more explanations just try it.
+- **Rock Paper Scissors Spock Lizard** is similar, but has two additional options, rather than more explanations just try it.
 
 
 ### Rules
@@ -53,4 +53,4 @@ Every other thing happens here,
 You can check who sent a friend request, or who challenged you as well as other notifications
 
 
-## [Start playing](https://reactjs.org/).
+## [Start playing](https://reactjs.org/)

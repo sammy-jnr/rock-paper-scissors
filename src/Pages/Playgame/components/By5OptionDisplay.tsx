@@ -24,7 +24,7 @@ const By5OptionDisplay = () => {
   const isLoggedIn = store.auth.isLoggedIn
 
   const calculateVerdict = (selectedOption: string) => {
-    clickSound.play()
+    // clickSound.play()
     if (playerMode === "singleplayer") {
       const result = optionClicked(selectedOption, gameMode, isLoggedIn)
       if (!result) return
@@ -54,8 +54,8 @@ const By5OptionDisplay = () => {
           dispatch(setGameProgress("waiting"))
           socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent)
         } else {
-          let { verdict, opponentsChoice, myScore, opponentsScore, myChoice } = res.data
-          dispatch(setcurrentChallengeDisplay({ ...currentChallenge, opponentsChoice, myScore, opponentsScore }))
+          let { verdict, opponentsChoice, myScore, opponentsScore, myChoice, roundsPlayed } = res.data
+          dispatch(setcurrentChallengeDisplay({ ...currentChallenge, opponentsChoice, myScore, opponentsScore, roundsPlayed }))
           dispatch(setOpponentOption(opponentsChoice))
           dispatch(setGameProgress(verdict))
           if(verdict === "won" || verdict === "lost"){

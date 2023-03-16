@@ -233,6 +233,7 @@ ul li {
   width: 100%;
   min-height: 100%;
   position: relative;
+  background-color: #070521;
 }
 
 .friendChatContainer header {
@@ -259,7 +260,6 @@ ul li {
   flex-direction: column;
   padding-bottom: 40px;
   margin: auto;
-  background-color: #070521;
 }
 
 .messageContainer {

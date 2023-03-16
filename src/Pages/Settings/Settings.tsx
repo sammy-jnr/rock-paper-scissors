@@ -8,9 +8,9 @@ import "rc-slider/assets/index.css";
 import { RootState } from "../../store"
 import { useSelector, useDispatch } from "react-redux"
 import { changeGameMode, changePlayerMode, sendNewNotification, setTotalRounds } from '../../Features/MainSlice'
-import { setUsername } from "../../Features/OnlineSlice";
+import { setCurrentChallenge, setUsername } from "../../Features/OnlineSlice";
 import { logOut } from "../../Features/AuthSlice";
-import { changeNameDb } from "../../utils/axiosCalls";
+import { changeNameDb, clearMultiplayerGameDb } from "../../utils/axiosCalls";
 import { audio, victorySound, defeatSound, clickSound, drawSound } from "../../utils/audio";
 import { socket } from "../../App";
 
@@ -61,14 +61,14 @@ function Settings() {
         setshowEditNameInput(false)
         setisLoading(false)
         dispatch(sendNewNotification({
-          backgroundColor: "green",
+          backgroundColor: "#2d6a4f",
           text: "Saved",
           fontSize: 16,
           status: true,
           time: 1500
         }))
-        if(newNameRef.current?.value)
-        newNameRef.current.value = ""
+        if (newNameRef.current?.value)
+          newNameRef.current.value = ""
       })
       .catch(() => {
         setisLoading(false)
@@ -101,7 +101,7 @@ function Settings() {
           <div
             className="changeNameText"
             onClick={() => {
-              if(!isLoggedIn)return
+              if (!isLoggedIn) return
               setshowEditNameInput((prev) => !prev);
             }}
           >
@@ -139,7 +139,7 @@ function Settings() {
           <p
             className="hoverable"
             onClick={() => {
-              if(!isLoggedIn)return
+              if (!isLoggedIn) return
               navigate("imagepreview")
             }}
           >upload</p>
@@ -267,7 +267,7 @@ function Settings() {
                   dispatch(changePlayerMode("multiplayer"))
                   :
                   dispatch(sendNewNotification({
-                    backgroundColor: "red",
+                    backgroundColor: "#c9184a",
                     text: "You are not logged in.",
                     fontSize: 15,
                     status: true,
@@ -279,6 +279,23 @@ function Settings() {
             </p>
           </div>
         </section>
+        {isLoggedIn &&
+          <section className="clearMultiplayerGame hoverable"
+          onClick={()=>{
+            clearMultiplayerGameDb()
+            dispatch(setCurrentChallenge(undefined))
+            dispatch(sendNewNotification({
+              backgroundColor: "#2d6a4f",
+              text: "Cleared",
+              fontSize: 15,
+              status: true,
+              time: 1500
+            }))
+          }}
+          >
+            Clear CurrentMultiplayer Game
+          </section>
+          }
         <section className="GameMode">
           <header>
             <p>Game Mode</p>
