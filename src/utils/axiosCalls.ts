@@ -10,7 +10,7 @@ const headers = {
   authorization: `Bearer ${accessTokenCookie}`,
 };
 
-const baseUrl = "https://rock_paper_scissors_backend.onrender.com"
+const baseUrl = "https://rockpaperscissors-backend.onrender.com"
 
 export const registerNewUser = (username:string,email:string,password:string) => {
   return axios({
