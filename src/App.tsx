@@ -38,7 +38,7 @@ import { setOpponentOption, setGameProgress, setGameState } from "./Features/Mai
 import ProtectedRoutes from "./ProtectedRoutes";
 import NotFound from "./Pages/404/NotFound";
 
-export const socket = io("http://localhost:5000")
+export const socket = io("https://rockpaperscissors-backend.onrender.com")
 
 function App() {
 
@@ -52,11 +52,8 @@ function App() {
   const refreshTokenCookie = getCookie("refreshToken")
 
   useEffect(() => {
-    socket.on("connect", () => {  
-      console.log("connected soccet")
-    })
+    socket.on("connect", () => {})
     socket.on("updateNotifications", (notifications: NotificationInterface[]) => {
-      console.log(notifications)
       dispatch(setNotificationsArray(notifications));
     })
     socket.on("challengeUpdated", (currentChallenge, verdict, opponentsChoice) => {
@@ -113,7 +110,7 @@ function App() {
           connectRoomSocketIO(username)
           dispatch(setInitialLoading(false))
         })
-        .catch(() => console.log("couldn't fetch user"))
+        .catch(() => {})
       return;
     }
     else {
@@ -132,10 +129,6 @@ function App() {
       }
     }
   }, [isLoggedIn]);
-
-  window.addEventListener("storage", function(e) {
-    console.debug(e);
- }, false);
 
   return (
     <div className="App">

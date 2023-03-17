@@ -7,7 +7,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { RootState } from "../../store"
 import { useSelector, useDispatch } from "react-redux"
-import { changeGameMode, changePlayerMode, sendNewNotification, setTotalRounds } from '../../Features/MainSlice'
+import { changeGameMode, changePlayerMode, sendNewNotification, setTotalRounds, setisMusicPlaying } from '../../Features/MainSlice'
 import { setCurrentChallenge, setUsername } from "../../Features/OnlineSlice";
 import { logOut } from "../../Features/AuthSlice";
 import { changeNameDb, clearMultiplayerGameDb } from "../../utils/axiosCalls";
@@ -25,6 +25,7 @@ function Settings() {
   const playerMode = store.main.playerMode
   const gameMode = store.main.gameMode
   const totalRounds = store.main.totalRounds
+  const isMusicPlaying = store.main.isMusicPlaying
   const isLoggedIn = store.auth.isLoggedIn
 
 
@@ -35,7 +36,7 @@ function Settings() {
     color: "#cecece"
   }
   const [showEditNameInput, setshowEditNameInput] = useState<boolean>(false);
-  const [isMusicPlaying, setisMusicPlaying] = useState<boolean>(false);
+  // const [isMusicPlaying, setisMusicPlaying] = useState<boolean>(false);
   const [isNameTaken, setisNameTaken] = useState<boolean>(false);
 
   const [isLoading, setisLoading] = useState<boolean>(false);
@@ -181,7 +182,7 @@ function Settings() {
           <div
             className="hoverable"
             onClick={() => {
-              setisMusicPlaying((prev) => !prev);
+              dispatch(setisMusicPlaying(!isMusicPlaying));
               if (isMusicPlaying) {
                 audio.pause()
               } else {
@@ -279,8 +280,7 @@ function Settings() {
             </p>
           </div>
         </section>
-        {isLoggedIn &&
-          <section className="clearMultiplayerGame hoverable"
+        {isLoggedIn && <section className="clearMultiplayerGame hoverable"
           onClick={()=>{
             clearMultiplayerGameDb()
             dispatch(setCurrentChallenge(undefined))
@@ -294,8 +294,7 @@ function Settings() {
           }}
           >
             Clear CurrentMultiplayer Game
-          </section>
-          }
+          </section>}
         <section className="GameMode">
           <header>
             <p>Game Mode</p>

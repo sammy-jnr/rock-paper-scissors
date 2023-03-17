@@ -24,7 +24,6 @@ function Notification() {
 
   const acceptChallenge = async (challengeRequest: NotificationInterface) => {
     await acceptChallengeDb(challengeRequest.sender, challengeRequest.gameMode, challengeRequest.totalRounds, challengeRequest.id)
-    console.log(challengeRequest)
     navigate("/selectoption")
     challengeRequest.gameMode && dispatch(changeGameMode(challengeRequest.gameMode))
     dispatch(changePlayerMode("multiplayer"))
@@ -64,12 +63,12 @@ function Notification() {
   const rejectChallenge = (notificationId: string) => {
     removeNotificationLocal(notificationId)
     deleteNotification(notificationId)
-      .catch(err => console.log(err))
+      .catch(err => {})
   }
   const acceptFriendRequest = async (friendUsername: string, notificationId: string) => {
     removeNotificationLocal(notificationId)
     acceptFriendRequestToDb(friendUsername, notificationId)
-      .catch(err => console.log(err))
+      .catch(err => {})
   }
   const rejectFriendRequest = async (friendUsername: string, notificationId: string) => {
     removeNotificationLocal(notificationId)
@@ -77,14 +76,8 @@ function Notification() {
       .then((res) => {
         dispatch(setNotificationsArray(res.data.msg))
       })
-      .catch(err => console.log(err))
+      .catch(err => {})
   }
-
-  useEffect(() => {
-    console.log(notificationArray)
-  }, [notificationArray]);
-
-
 
   return (
     <div className="notificationPage">
@@ -118,7 +111,6 @@ function Notification() {
             );
           }
           if (item.type === "challenge") {
-            console.log(item)
             return (
               <section className="receivedChallenge" key={item.id}>
                 <header>
@@ -163,7 +155,7 @@ function Notification() {
                   onClick={() => {
                     removeNotificationLocal(item.id)
                     deleteNotification(item.id)
-                      .catch(err => console.log(err))
+                      .catch(err => {})
                   }}
                 />
               </div>

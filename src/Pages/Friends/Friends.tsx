@@ -49,11 +49,10 @@ function Friends() {
   const sendChallenge = (opponentUsername: string) => {
     sendChallengeDb(opponentUsername, totalRounds, gameMode)
       .then((res) => {
-        console.log(res.data.msg)
         setchallengeId(res.data.msg)
         socket.emit("newNotification", opponentUsername)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {})
   }
 
 

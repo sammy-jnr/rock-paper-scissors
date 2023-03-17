@@ -17,12 +17,6 @@ function SignIn() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    localStorage.setItem("path", "login")
-  }, []);
-
-
-
   const [logInEmail, setlogInEmail] = useState<string>("")
   const [loginPassword, setloginPassword] = useState<string>("")
 

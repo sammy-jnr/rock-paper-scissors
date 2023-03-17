@@ -20,6 +20,7 @@ interface InitialState {
   notificationObj: NotificationObjectInterface
   countdownStarted: boolean
   showNavClass: string,
+  isMusicPlaying: boolean
 }
 
 
@@ -42,6 +43,7 @@ const initialState:InitialState = {
   notificationObj: notificationObject,
   countdownStarted: false,
   showNavClass: "appInner",
+  isMusicPlaying: false
 }
 
 const mainSlice = createSlice({
@@ -91,6 +93,9 @@ const mainSlice = createSlice({
     setShowNavClass: (state, actions:PayloadAction<string>) =>{
       state.showNavClass = actions.payload
     },
+    setisMusicPlaying: (state, actions:PayloadAction<boolean>) =>{
+      state.isMusicPlaying = actions.payload
+    },
   }
 })
 
@@ -105,6 +110,7 @@ export const {
   setCountdownStarted,
   setTotalRounds,
   setShowNavClass,
+  setisMusicPlaying
 } = mainSlice.actions
 
 export default mainSlice.reducer

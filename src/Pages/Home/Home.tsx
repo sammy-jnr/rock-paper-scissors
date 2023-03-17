@@ -33,8 +33,8 @@ const Home = () => {
             </>
             :
             <div className='loginRegisterText'>
-              <Link to="/register" className='signtextslinks'><p>Register</p></Link>
-              <Link to="/login" className='signtextslinks'><p>Login</p></Link>
+              <Link to="/register" className='signtextslinks hoverable'><p>Register</p></Link>
+              <Link to="/login" className='signtextslinks hoverable'><p>Login</p></Link>
             </div>
           }
         </div>

@@ -22,16 +22,13 @@ function Onboarding() {
 
   useEffect(() => {
     if (typeof urlParams.code !== "string") return
-    console.log(params.action)
     if (isLoading) return
-    console.log(isLoading)
     setisLoading(true)
     const code = urlParams.code
     if (params.action === "register") {
-      console.log(code)
       registerGoogle(code)
         .then((res) => {
-          if (!res) return console.log("an error occurred")
+          if (!res) return
           const { username, accessToken, refreshToken } = res.data
           setCookie("accessToken", accessToken, 1)
           setCookie("refreshToken", refreshToken, 7)
@@ -60,7 +57,7 @@ function Onboarding() {
     if (params.action === "login") {
       loginGoogle(code)
         .then((res) => {
-          if (!res) return console.log("an error occurred")
+          if (!res) return
           const { username, accessToken, refreshToken } = res.data
           setCookie("accessToken", accessToken, 1)
           setCookie("refreshToken", refreshToken, 7)

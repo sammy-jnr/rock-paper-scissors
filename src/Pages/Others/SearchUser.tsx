@@ -28,10 +28,9 @@ function SearchUser() {
   useEffect(() => {
     getAllUsers()
       .then((res) => {
-        console.log(res.data.msg)
         setallUsers(res.data.msg.filter((item: string) => item !== username))
       })
-      .catch(() => console.log("couldn't fetch users"))
+      .catch(() => {})
   }, []);
 
 
@@ -103,7 +102,7 @@ function SearchUser() {
           className="largeIcon" alt=""
         />
         <div>
-          <input type="text" placeholder='Search username'
+          <input type="text" placeholder='Search username' spellCheck={false}
             onChange={(e) => {
               if (e.target.value === "") {
                 return setselectedArray([])

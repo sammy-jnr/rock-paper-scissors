@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import "./SignUp.css"
 import closeIcon from "../../Assets/Icons/closeIcon.svg"
 import googleIcon from "../../Assets/Icons/googleIcon.svg"
@@ -20,10 +20,6 @@ function SignUp() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    localStorage.setItem("path", "register")
-    localStorage.setItem("randomnigga", "bla bla bla")
-  }, []);
 
   const [showPassword, setshowPassword] = useState<boolean>(false)
   const [username, setusername] = useState<string>("")
@@ -71,7 +67,7 @@ function SignUp() {
     setisLoading(true)
     registerNewUser(username, email, password)
       .then((res) => {
-        if (!res) return console.log("an error occurred")
+        if (!res) return
         const { username, accessToken, refreshToken } = res.data
         setCookie("accessToken", accessToken, 1)
         setCookie("refreshToken", refreshToken, 7)

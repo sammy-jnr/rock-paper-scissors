@@ -2,7 +2,7 @@ import * as queryString from 'query-string';
 
 const stringifiedParamsLogin = queryString.default.stringify({
   client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  redirect_uri: 'http://localhost:3000/authenticate/google/login',
+  redirect_uri: 'https://rockpaperscissorsapp.onrender.com/authenticate/google/login',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -14,7 +14,7 @@ const stringifiedParamsLogin = queryString.default.stringify({
 
 const stringifiedParamsRegister = queryString.default.stringify({
   client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  redirect_uri: 'http://localhost:3000/authenticate/google/register',
+  redirect_uri: 'https://rockpaperscissorsapp.onrender.com/authenticate/google/register',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',

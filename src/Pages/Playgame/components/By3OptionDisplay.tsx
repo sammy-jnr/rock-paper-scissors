@@ -48,7 +48,6 @@ const By3OptionDisplay = () => {
     selectedOptionDb(selectedOption, currentChallenge.opponent)
       .then((res) => {
         if (res.data.msg === "successful") {
-          console.log(res.data.msg)
           dispatch(setGameProgress("waiting"))
           socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent)
         } else {
@@ -57,10 +56,8 @@ const By3OptionDisplay = () => {
           dispatch(setOpponentOption(opponentsChoice))
           dispatch(setGameProgress(verdict))
           if(verdict === "won" || verdict === "lost" || verdict === "draw"){
-            console.log(undefined)
             dispatch(setCurrentChallenge(undefined))
           }
-          console.log(roundsPlayed)
           socket.emit("optionSelected", currentChallenge.me, currentChallenge.opponent, verdict, myChoice, myScore, opponentsScore)
         }
       })

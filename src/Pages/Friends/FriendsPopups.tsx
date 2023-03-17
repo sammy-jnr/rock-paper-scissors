@@ -63,21 +63,19 @@ function FriendsPopups(props: FriendsPopupInterface) {
     dispatch(setCountdownStarted(false))
     props.setfriendPopupType(undefined)
     clearIntervalFunc(true)
-    console.log(props.challengeId)
     cancelChallengeDb(opponentUsername, props.challengeId)
       .then(() => {
         socket.emit("newNotification", opponentUsername)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {})
   }
 
   const removeFriend = (friendUsername: string) => {
     removeFriendDb(friendUsername)
       .then((res) => {
-        console.log(res.data)
         dispatch(setFriendsArray(res.data.msg))
       })
-      .catch(() => console.log("Couldn't remove friend"))
+      .catch(() => {})
   }
 
   if (!props.type) return null
@@ -100,7 +98,6 @@ function FriendsPopups(props: FriendsPopupInterface) {
                   // remove the friend instantly before the database returns a response
                   if (props.selectedFriend === undefined) return
                   let friendUsername = props.selectedFriend.username
-                  console.log(friendUsername)
                   dispatch(setFriendsArray(friends.filter(item => item.username !== friendUsername)))
                   // 
                   removeFriend(friendUsername)
