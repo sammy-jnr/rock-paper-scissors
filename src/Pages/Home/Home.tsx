@@ -14,6 +14,7 @@ const Home = () => {
   const gameMode = store.main.gameMode
   const playerMode = store.main.playerMode
   const isLoggedIn = store.auth.isLoggedIn
+  const initialLoading = store.auth.initialLoading
   const username = store.online.username
   const url = store.online.url
 
@@ -24,18 +25,25 @@ const Home = () => {
           <img src={gameMode === "RPS" ? By3Logo : By5Logo} alt="" />
         </div>
         <div id="usernameDiv">
-          {isLoggedIn ?
-            <>
-              <div id='userThumbnailHome'>
-              {url && <img src={url} alt="" className='userThumbnailImages'/>}
-              </div>
-              <div id="displayUsername">{username}</div>
-            </>
-            :
-            <div className='loginRegisterText'>
-              <Link to="/register" className='signtextslinks hoverable'><p>Register</p></Link>
-              <Link to="/login" className='signtextslinks hoverable'><p>Login</p></Link>
-            </div>
+          {
+            initialLoading ?
+              <span className="generalLoadingIcon"></span>
+              :
+              <>
+                {isLoggedIn ?
+                  <>
+                    <div id='userThumbnailHome'>
+                      {url && <img src={url} alt="" className='userThumbnailImages' />}
+                    </div>
+                    <div id="displayUsername">{username}</div>
+                  </>
+                  :
+                  <div className='loginRegisterText'>
+                    <Link to="/register" className='signtextslinks hoverable'><p>Register</p></Link>
+                    <Link to="/login" className='signtextslinks hoverable'><p>Login</p></Link>
+                  </div>
+                }
+              </>
           }
         </div>
       </section>
@@ -72,15 +80,15 @@ const Home = () => {
           <p
             onClick={() => {
               isLoggedIn ?
-              dispatch(changePlayerMode("multiplayer"))
-              :
-              dispatch(sendNewNotification({
-                backgroundColor: "#c9184a",
-                text: "You are not logged in.",
-                fontSize: 15,
-                status: true,
-                time: 3500
-              }))
+                dispatch(changePlayerMode("multiplayer"))
+                :
+                dispatch(sendNewNotification({
+                  backgroundColor: "#c9184a",
+                  text: "You are not logged in.",
+                  fontSize: 15,
+                  status: true,
+                  time: 3500
+                }))
             }}
             style={{
               backgroundColor: playerMode === "multiplayer" ? "#04054441" : "#24395a",

@@ -131,7 +131,7 @@
 .startLink{
   width: 95%;
   max-width: 1000px;
-  height: clamp(200px, 300px, 90%);
+  height: clamp(300px, 300px, 90%);
 }
 .homePageExtras{
   height: 25px;

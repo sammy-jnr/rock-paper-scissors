@@ -130,6 +130,10 @@ function App() {
     }
   }, [isLoggedIn]);
 
+  const pathsForNoNav = ["/friends/", "/selectoption"]
+  const pathname = window.location.pathname
+
+
   return (
     <div className="App">
       <Router>
@@ -153,7 +157,7 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </div>
-        <Navigation />
+        {!pathsForNoNav.includes(pathname) && <Navigation />}
       </Router>
     </div>
   );

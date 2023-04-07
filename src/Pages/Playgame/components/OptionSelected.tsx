@@ -31,7 +31,8 @@ const OptionSelected = () => {
     dispatch(setOpponentOption(""))
     dispatch(setGameState("selectoption"))
     dispatch(changePlayerMode("singleplayer"))
-    playerMode === "multiplayer" && navigate("/")
+    // playerMode === "multiplayer" && navigate("/")
+    navigate("/")
   }
 
 

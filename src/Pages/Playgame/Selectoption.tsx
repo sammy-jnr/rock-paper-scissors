@@ -6,7 +6,7 @@ import By3OptionDisplay from './components/By3OptionDisplay'
 import By5OptionDisplay from './components/By5OptionDisplay'
 import OptionSelected from './components/OptionSelected'
 import { setcurrentChallengeDisplay } from "../../Features/OnlineSlice"
-import { setGameProgress, setGameState } from "../../Features/MainSlice"
+import { setGameProgress, setGameState, setShowNavClass } from "../../Features/MainSlice"
 const Selectoption = () => {
   const dispatch = useDispatch()
   const store = useSelector((store: RootState) => store)
@@ -27,7 +27,11 @@ const Selectoption = () => {
     myChoice: "",
     opponentsChoice: "",
   }
-
+  const pathname = window.location.pathname
+  useEffect(() => {
+    dispatch(setShowNavClass(pathname.includes("/selectoption") ? "noNav" : "appInner"))
+  }, []);
+  
   useEffect(() => {
     return () => {
       dispatch(setcurrentChallengeDisplay(currentChallengeDisplayInitialState))

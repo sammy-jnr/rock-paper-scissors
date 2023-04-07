@@ -42,7 +42,7 @@ const initialState:InitialState = {
   opponentOption: "",
   notificationObj: notificationObject,
   countdownStarted: false,
-  showNavClass: "appInner",
+  showNavClass: "noNav",
   isMusicPlaying: false
 }
 

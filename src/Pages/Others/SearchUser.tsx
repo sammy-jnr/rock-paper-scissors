@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import arrowLeft from "../../Assets/Icons/arrowLeft.svg"
 import { useNavigate } from "react-router-dom"
 import { RootState } from "../../store"
@@ -14,6 +14,8 @@ function SearchUser() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const searchRef = useRef<HTMLInputElement>(null)
 
   const store = useSelector((store: RootState) => store)
   const friendRequestsSent = store.online.friendRequestsSent
@@ -102,7 +104,7 @@ function SearchUser() {
           className="largeIcon" alt=""
         />
         <div>
-          <input type="text" placeholder='Search username' spellCheck={false}
+          <input type="text" placeholder='Search username' spellCheck={false} ref={searchRef}
             onChange={(e) => {
               if (e.target.value === "") {
                 return setselectedArray([])
@@ -113,7 +115,7 @@ function SearchUser() {
       </header>
       {selectedArray.length < 1 &&
         <div id='noUserDiv'>
-          No user found
+          {searchRef.current?.value === "" ? "No Input" : "No user found"}
         </div>}
       {mapped}
     </div>
