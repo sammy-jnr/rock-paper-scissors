@@ -52,7 +52,7 @@ function App() {
   const refreshTokenCookie = getCookie("refreshToken")
 
   useEffect(() => {
-    socket.on("connect", () => {})
+    socket.on("connect", () => { })
     socket.on("updateNotifications", (notifications: NotificationInterface[]) => {
       dispatch(setNotificationsArray(notifications));
     })
@@ -92,7 +92,11 @@ function App() {
   useEffect(() => {
     dispatch(setInitialLoading(true))
     const username = localStorage.getItem("username")
-    if (!username) return
+    if (!username) {
+      dispatch(setIsLoggedIn(false))
+      dispatch(setInitialLoading(false))
+      return
+    }
     if (accessTokenCookie) {
       getUser(username, accessTokenCookie)
         .then((res) => {
@@ -110,7 +114,10 @@ function App() {
           connectRoomSocketIO(username)
           dispatch(setInitialLoading(false))
         })
-        .catch(() => {})
+        .catch(() => {
+          dispatch(setIsLoggedIn(false))
+          dispatch(setInitialLoading(false))
+        })
       return;
     }
     else {
@@ -121,6 +128,10 @@ function App() {
             setCookie("accessToken", newAccessToken, 1)
             setCookie("refreshToken", newRefreshToken, 7)
             dispatch(setIsLoggedIn(true));
+            dispatch(setInitialLoading(false))
+          })
+          .catch(() => {
+            dispatch(setIsLoggedIn(false))
             dispatch(setInitialLoading(false))
           })
       } else {
@@ -154,7 +165,7 @@ function App() {
               <Route path="/friends/:name" element={<FriendChat />} />
               <Route path="/notifications" element={<Notification />} />
             </Route>
-            <Route path="*" element={<NotFound/>}/>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         {!pathsForNoNav.includes(pathname) && <Navigation />}
