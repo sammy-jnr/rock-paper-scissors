@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RootState } from "./store"
 import { useSelector, useDispatch } from "react-redux"
 import { setCookie, getCookie } from "./utils/cookies";
-import { getUser, getNewAccessToken } from "./utils/axiosCalls";
+import { getUser, getNewAccessToken, setCookieOnLogin } from "./utils/axiosCalls";
 import { setIsLoggedIn, setInitialLoading } from "./Features/AuthSlice";
 import {
   setCurrentChallenge,
@@ -39,6 +39,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import NotFound from "./Pages/404/NotFound";
 
 export const socket = io("https://rockpaperscissors-backend.onrender.com")
+// export const socket = io("http://localhost:5000")
 
 function App() {
 
@@ -127,6 +128,7 @@ function App() {
             let { newAccessToken, newRefreshToken } = res.data
             setCookie("accessToken", newAccessToken, 1)
             setCookie("refreshToken", newRefreshToken, 7)
+            setCookieOnLogin(newAccessToken, newRefreshToken)
             dispatch(setIsLoggedIn(true));
             dispatch(setInitialLoading(false))
           })

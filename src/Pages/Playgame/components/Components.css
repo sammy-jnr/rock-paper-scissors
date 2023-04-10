@@ -20,6 +20,7 @@
   position: relative;
   background-image: url(../../../Assets/Images/bg-pentagon.svg);
 }
+
 .selectOption5First {
   display: flex;
   align-items: center;
@@ -42,32 +43,37 @@
   gap: 40px;
   margin-top: 30px;
 }
+
 /* half the styles are in tokenicon.css */
 
 /*  */
-#optionSelectedContainer{
+#optionSelectedContainer {
   height: 100%;
   width: 100%;
 }
-#optionSelectedContainerTop{
+
+#optionSelectedContainerTop {
   height: 50%;
   width: 100%;
 }
-#optionSelectedContainerTopImgs{
+
+#optionSelectedContainerTopImgs {
   height: calc(100% - 40px);
   max-height: 180px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-#optionSelectedContainerTopText{
+
+#optionSelectedContainerTopText {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0px 0 20px;
   margin-top: 10px;
 }
-#optionSelectedContainerBottom{
+
+#optionSelectedContainerBottom {
   min-height: 50%;
   width: 100%;
   display: flex;
@@ -76,7 +82,8 @@
   align-items: center;
   padding: 20px 0;
 }
-#displayVerdict{
+
+#displayVerdict {
   width: 250px;
   margin: 0 auto;
   height: 80px;
@@ -88,7 +95,8 @@
   font-weight: 700;
   border-radius: 5px;
 }
-#newGame{
+
+#newGame {
   width: 90%;
   max-width: 500px;
   display: grid;
@@ -101,10 +109,11 @@
   padding: 13px;
 }
 
-.waitingDiv{
+.waitingDiv {
   font-size: 2em;
 }
-#roundsInfo{
+
+#roundsInfo {
   display: flex;
   padding: 20px 40px;
   background-color: #141539;
@@ -112,11 +121,12 @@
   border-radius: 10px;
   margin-bottom: 20px;
 }
-#roundsInfo p{
+
+#roundsInfo p {
   margin-right: 20px;
 }
 
-.nextRound{
+.nextRound {
   font-size: 2em;
   padding: 10px 30px;
   border: 2px solid;
@@ -124,7 +134,7 @@
 }
 
 /*  */
-.objectsIconOuter{
+.objectsIconOuter {
   width: 110px;
   height: 110px;
   display: flex;
@@ -132,11 +142,13 @@
   justify-content: center;
   border-radius: 50%;
 }
-.objectsIconOuter:hover{
- cursor: pointer;
- -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+
+.objectsIconOuter:hover {
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-.objectsIconInner{
+
+.objectsIconInner {
   width: 80px;
   height: 80px;
   display: flex;
@@ -145,10 +157,12 @@
   border-radius: 50%;
   background-color: white;
 }
-.smallImages{
+
+.smallImages {
   width: 35px;
 }
-.objectsIconOuterSmall{
+
+.objectsIconOuterSmall {
   min-width: 105px;
   height: 105px;
   display: flex;
@@ -156,11 +170,13 @@
   justify-content: center;
   border-radius: 50%;
 }
-.objectsIconOuterSmall:hover{
+
+.objectsIconOuterSmall:hover {
   cursor: pointer;
-  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
- }
-.objectsIconInnerSmall{
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.objectsIconInnerSmall {
   width: 80px;
   height: 80px;
   display: flex;
@@ -169,7 +185,8 @@
   border-radius: 50%;
   background-color: white;
 }
-.selectOption5First{
+
+.selectOption5First {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,35 +194,45 @@
   top: 40px;
   margin-bottom: 5px;
 }
-.selectOption5Second{
+
+.selectOption5Second {
   display: flex;
   justify-content: center;
   gap: 30%;
   margin-top: 20px;
 }
-.selectOption5Third{
+
+.selectOption5Third {
   display: flex;
   justify-content: center;
   gap: 40px;
   margin-top: 30px;
 }
-.rockIcon{
- background-image: linear-gradient(180deg, #dc2e4e , #dd405d);
+
+.rockIcon {
+  background-image: linear-gradient(180deg, #dc2e4e, #dd405d);
 }
-.scissorsIcon{
-  background-image: linear-gradient(180deg, #ec9e0e , #eca922);}
-.paperIcon{
-  background-image: linear-gradient(180deg,#4865f4 , #5671f5);
+
+.scissorsIcon {
+  background-image: linear-gradient(180deg, #ec9e0e, #eca922);
 }
-.lizardIcon{
-  background-image: linear-gradient(180deg,#834fe3 , #8c5de5);
+
+.paperIcon {
+  background-image: linear-gradient(180deg, #4865f4, #5671f5);
 }
-.spockIcon{
-  background-image: linear-gradient(180deg,#40b9ce , #52bed1);
+
+.lizardIcon {
+  background-image: linear-gradient(180deg, #834fe3, #8c5de5);
 }
-.empty{
+
+.spockIcon {
+  background-image: linear-gradient(180deg, #40b9ce, #52bed1);
+}
+
+.empty {
   background-color: #14153971;
 }
+
 .loader {
   width: 48px;
   height: 48px;
@@ -221,67 +248,89 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
-} 
-#selectOption3Top{
+}
+
+#selectOption3Top {
   display: flex;
   justify-content: space-between;
   position: relative;
   margin-bottom: 25px;
   /* top: -30px; */
 }
-#selectOption3Bottom{
+
+#selectOption3Bottom {
   display: flex;
   justify-content: center;
   top: 50px;
   position: relative;
 }
+
 .selectOption5Second {
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
 }
+
 /* half the styles are in components.css */
 
 
 @media screen and (min-width: 361px) {
-  .objectsIconOuter{
+  .objectsIconOuter {
     width: 140px;
     height: 140px;
   }
-  .objectsIconInner{
+
+  .objectsIconInner {
     width: 110px;
     height: 110px;
   }
-  #selectOption3Bottom{
+
+  #selectOption3Bottom {
     top: 20px;
   }
-  #selectOption3Top{
+
+  #selectOption3Top {
     top: -20px;
   }
-  #by3container{
+
+  #by3container {
     background-size: unset;
     height: 310px;
   }
+
   .selectOption5Third {
     margin-top: 40px;
     gap: 60px;
   }
 }
+
+@media screen and (max-width: 350px) {
+  #displayVerdict {
+    width: 200px;
+    height: 70px;
+    font-size: 1.7em;
+  }
+}
+
 @media screen and (min-width: 481px) {
   .selectOption5Third {
     gap: 80px;
     margin-top: 60px;
   }
 }
+
 @media screen and (min-width: 1000px) {
-  #optionSelectedContainerTopText p{
+  #optionSelectedContainerTopText p {
     font-size: 20px;
   }
-  #optionSelectedContainerTopText{
+
+  #optionSelectedContainerTopText {
     padding: 10px;
   }
 }
+
 /*  */

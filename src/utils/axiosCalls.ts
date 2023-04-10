@@ -2,14 +2,20 @@ import axios from "axios"
 import { RandomID } from '../ID'
 import { getCookie } from "./cookies"
 
-const accessTokenCookie = getCookie("accessToken")
-const refreshTokenCookie = getCookie("refreshToken")
+let accessTokenCookie = getCookie("accessToken")
+let refreshTokenCookie = getCookie("refreshToken")
+
+export const setCookieOnLogin = (accessToken:string, refreshToken:string) =>{
+  accessTokenCookie = accessToken
+  refreshTokenCookie = refreshToken
+}
 
 const headers = {
   "Content-Type": "application/json",
   authorization: `Bearer ${accessTokenCookie}`,
 };
 
+// const baseUrl = "http://localhost:5000"
 const baseUrl = "https://rockpaperscissors-backend.onrender.com"
 
 export const registerNewUser = (username:string,email:string,password:string) => {

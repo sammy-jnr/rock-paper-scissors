@@ -72,7 +72,12 @@
 .selectedOption{
   max-width: clamp(200px,90%, 800px );
 }
-
+@media screen and (max-width: 350px) {
+  #scoreText{
+    font-size: 30px;
+    font-weight: 600;
+  }
+}
 @media screen and (min-width: 1000px) {
   .gameSettingsPreview div{
     font-size: 20px;

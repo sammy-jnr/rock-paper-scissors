@@ -22,7 +22,7 @@ const Home = () => {
     <div className='homeContainer'>
       <section id="usenameSection">
         <div id="logoDiv">
-          <img src={gameMode === "RPS" ? By3Logo : By5Logo} alt="" />
+          <img src={gameMode === "RPS" ? By3Logo : By5Logo} alt="" className="logoImg"/>
         </div>
         <div id="usernameDiv">
           {

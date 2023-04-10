@@ -4,7 +4,7 @@ import closeIcon from "../../Assets/Icons/closeIcon.svg"
 import googleIcon from "../../Assets/Icons/googleIcon.svg"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { login } from '../../utils/axiosCalls'
+import { login, setCookieOnLogin } from '../../utils/axiosCalls'
 import { setCookie } from "../../utils/cookies"
 import { setIsLoggedIn } from '../../Features/AuthSlice'
 import { setUsername } from '../../Features/OnlineSlice'
@@ -35,6 +35,7 @@ function SignIn() {
         const { username, accessToken, refreshToken } = res.data
         setCookie("accessToken", accessToken, 1)
         setCookie("refreshToken", refreshToken, 30)
+        setCookieOnLogin(accessToken, refreshToken)
         dispatch(setUsername(username));
         localStorage.setItem("username", username)
         dispatch(setIsLoggedIn(true))

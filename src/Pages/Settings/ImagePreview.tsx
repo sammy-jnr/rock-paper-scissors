@@ -107,6 +107,7 @@ function ImagePreview() {
             <div className='noImgUploaded'>
               <input type="file"
                 className="hoverable"
+                accept='image/*'
                 ref={fileRef}
                 onChange={(e) => { onNewFile(e) }}
               />

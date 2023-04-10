@@ -6,7 +6,7 @@ import closedEyesIcon from "../../Assets/Icons/closedEyesIcon.svg"
 import openEyesIcon from "../../Assets/Icons/openEyesIcon.svg"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { registerNewUser } from '../../utils/axiosCalls'
+import { registerNewUser, setCookieOnLogin } from '../../utils/axiosCalls'
 import { setCookie } from "../../utils/cookies"
 import { setIsLoggedIn } from '../../Features/AuthSlice'
 import { socket } from '../../App'
@@ -71,6 +71,7 @@ function SignUp() {
         const { username, accessToken, refreshToken } = res.data
         setCookie("accessToken", accessToken, 1)
         setCookie("refreshToken", refreshToken, 7)
+        setCookieOnLogin(accessToken, refreshToken)
         socket.emit("joinRoom", username)
         dispatch(setUsername(username));
         localStorage.setItem("username", username)
