@@ -115,7 +115,7 @@ function SearchUser() {
       </header>
       {selectedArray.length < 1 &&
         <div id='noUserDiv'>
-          {searchRef.current?.value === "" ? "No Input" : "No user found"}
+          {searchRef.current?.value.length! >= 1 ? "No user found" :  "No Input"}
         </div>}
       {mapped}
     </div>

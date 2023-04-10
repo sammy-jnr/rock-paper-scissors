@@ -127,11 +127,17 @@
   align-items: center;
   justify-content: center;
   font-size: 3em;
+  text-align: center;
 }
 .startLink{
   width: 95%;
   max-width: 1000px;
-  height: clamp(300px, 300px, 90%);
+  height: clamp(100px, 300px, 90%);
+}
+@media screen and (max-width: 350px) {
+  #startGameText{
+    font-size: 2em;
+  }
 }
 .homePageExtras{
   height: 25px;
