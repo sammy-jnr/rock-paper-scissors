@@ -53,4 +53,4 @@ Every other thing happens here,
 You can check who sent a friend request, or who challenged you as well as other notifications
 
 
-## [Start playing](https://reactjs.org/)
+## [Start playing](https://rockpaperscissorsapp.onrender.com)

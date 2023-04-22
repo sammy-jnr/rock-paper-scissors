@@ -99,9 +99,9 @@ function SearchUser() {
       <header>
         <img src={arrowLeft}
           onClick={() => {
-            navigate("/")
+            navigate(-1)
           }}
-          className="largeIcon" alt=""
+          className="largeIcon hoverable" alt=""
         />
         <div>
           <input type="text" placeholder='Search username' spellCheck={false} ref={searchRef}

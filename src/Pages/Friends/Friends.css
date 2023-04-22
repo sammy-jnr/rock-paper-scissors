@@ -87,6 +87,41 @@ ul li {
   margin-bottom: 5px;
 }
 
+.illustration1Container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-height: 50vh;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration1Container button{
+  width: 100%;
+  background-color: #00001c;
+  border: none;
+  color: whitesmoke;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 17px;
+  border: 4px solid rgb(173, 183, 231);
+}
+#illustration1Link{
+  width: 80%;
+  max-width: 500px;
+
+}
+.illustration1{
+  max-height: 90%;
+  max-width: clamp(20%, 90%, 500px);
+}
+
 .friendsPopupsContainer {
   position: fixed;
   width: 100%;

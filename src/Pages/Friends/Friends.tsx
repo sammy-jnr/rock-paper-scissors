@@ -4,6 +4,7 @@ import removeIcon from "../../Assets/Icons/removeIcon.svg";
 import swordsIcon from "../../Assets/Icons/swordsIcon.svg";
 import messageIcon from "../../Assets/Icons/messageIcon.svg";
 import infoIcon from "../../Assets/Icons/infoIcon.svg";
+import illustration1 from "../../Assets/Images/illustration1.png";
 import FriendsPopups from "./FriendsPopups";
 import { RootState } from "../../store"
 import { useSelector } from "react-redux"
@@ -11,6 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { sendChallengeDb } from '../../utils/axiosCalls'
 import { socket } from '../../App'
 import { FriendInterface } from "../../interfaces";
+import { Link } from "react-router-dom";
 
 function Friends() {
 
@@ -138,6 +140,14 @@ function Friends() {
       <header>
         <h2>Friends</h2>
       </header>
+      {
+        friendOptionArray.length === 0 ?
+            <div className="illustration1Container">
+              <img src={illustration1} alt="" className="illustration1"/>
+              <Link to={"/search"} id="illustration1Link"><button className="hoverable">Add friends</button></Link>
+            </div>
+            : null
+      }
       <div className="friendsPageInner">{mappedFriends}</div>
     </div>
   );
